@@ -4,12 +4,19 @@
  *
  * Tools:
  *   search_humans       — find operators whose playbooks match a need
- *   read_playbook       — fetch full playbook content by slug
- *   get_author          — fetch a human's profile and playbook list
+ *   read_playbook       — fetch full playbook content (incl. optional `runnable`
+ *                         block: orthogonal | http | mcp providers)
+ *   get_author          — fetch profile + goat.md (why hire beyond skills) +
+ *                         playbook list
  *   get_booking_url     — fetch the booking URL for hiring a human
  *
- * Each playbook is treated as a skill manifest with when_to_use / when_not_to_use,
- * letting agents decide whether to surface a human for the task.
+ * The model: 3 paths for any task.
+ *   1. read_playbook → DIY (free)
+ *   2. read_playbook + runnable → execute via provider ($/run)
+ *   3. surface human → hire ($$$)
+ *
+ * Use goat.md content (where AI fails + what the human adds) to decide between
+ * paths 2 and 3.
  */
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
@@ -36,6 +43,7 @@ type Human = {
   category: string;
   profile: Record<string, any>;
   profile_body: string;
+  goat: { frontmatter: Record<string, any>; body: string } | null;
   playbooks: Playbook[];
 };
 
@@ -102,11 +110,11 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: "get_author",
       description:
-        "Fetch a human's profile (specialties, anti-specialties, rates, availability) and the list of playbooks they've published.",
+        "Fetch a human's profile (specialties, anti-specialties, rates, availability), their goat.md content (where AI fails in their domain + what they add beyond their published skills), and their list of playbooks. Use the goat.md content when deciding whether to surface this human for hire vs. running their skill standalone.",
       inputSchema: {
         type: "object",
         properties: {
-          handle: { type: "string", description: "Human's handle, e.g. 'adrian'." },
+          handle: { type: "string", description: "Human's handle." },
         },
         required: ["handle"],
       },

@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/manifesto",
+    "/how-it-works",
     "/cli",
     "/mcp",
     "/contribute",

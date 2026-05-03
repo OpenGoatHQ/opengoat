@@ -9,10 +9,12 @@ export function Footer() {
           <div>The human-skill registry for the agent era.</div>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
+          <Link href="/manifesto" className="hover:text-ink transition">Manifesto</Link>
+          <Link href="/how-it-works" className="hover:text-ink transition">How it works</Link>
+          <Link href="/contribute" className="hover:text-ink transition">Contribute</Link>
           <a href="https://github.com/OpenGoatHQ/opengoat" className="hover:text-ink transition">GitHub</a>
           <a href="https://www.npmjs.com/package/opengoat-cli" className="hover:text-ink transition">npm: opengoat-cli</a>
           <a href="https://www.npmjs.com/package/opengoat-mcp" className="hover:text-ink transition">npm: opengoat-mcp</a>
-          <Link href="/contribute" className="hover:text-ink transition">Contribute</Link>
         </div>
       </div>
     </footer>

@@ -38,10 +38,16 @@ export default function Home() {
               Search humans
             </Link>
             <Link
+              href="/how-it-works"
+              className="px-4 py-2 rounded-md border border-border hover:border-accent hover:text-accent transition"
+            >
+              How it works
+            </Link>
+            <Link
               href="/manifesto"
               className="px-4 py-2 rounded-md border border-border hover:border-accent hover:text-accent transition"
             >
-              Read the manifesto
+              Manifesto
             </Link>
             <Link
               href="/contribute"
