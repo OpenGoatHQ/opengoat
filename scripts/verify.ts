@@ -1,34 +1,27 @@
 #!/usr/bin/env bun
 /**
  * Validates frontmatter and required fields on every profile and playbook
- * under /humans/. Exits non-zero if any are missing or malformed.
+ * under humans/<category>/<handle>/. Exits non-zero if any are missing or malformed.
  */
 
-import { readdirSync, readFileSync, existsSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dir, "..");
 const HUMANS_DIR = join(ROOT, "humans");
 
-const REQUIRED_PROFILE_FIELDS = [
-  "name",
-  "handle",
-  "specialties",
-  "anti_specialties",
-  "booking_url",
-  "accepting_bookings",
-];
-const REQUIRED_PLAYBOOK_FIELDS = ["title", "slug", "author", "tags"];
+const REQUIRED_PROFILE = ["name", "handle", "specialties", "anti_specialties", "booking_url", "accepting_bookings"];
+const REQUIRED_PLAYBOOK = ["title", "slug", "author", "tags"];
 
 const errors: string[] = [];
 
-function readFm(path: string): Record<string, unknown> {
+function readFm(path: string): Record<string, any> {
   const src = readFileSync(path, "utf8");
   if (!src.startsWith("---")) return {};
   const end = src.indexOf("\n---", 3);
   if (end === -1) return {};
   const raw = src.slice(3, end).trim();
-  const fm: Record<string, unknown> = {};
+  const fm: Record<string, any> = {};
   let key: string | null = null;
   let list: string[] | null = null;
   for (const line of raw.split("\n")) {
@@ -51,27 +44,31 @@ function readFm(path: string): Record<string, unknown> {
   return fm;
 }
 
-for (const handle of readdirSync(HUMANS_DIR)) {
-  if (handle.startsWith("_") || handle.startsWith(".")) continue;
-  const dir = join(HUMANS_DIR, handle);
-  if (!statSync(dir).isDirectory()) continue;
-  const profilePath = join(dir, "profile.md");
-  if (!existsSync(profilePath)) {
-    errors.push(`humans/${handle}: missing profile.md`);
-    continue;
-  }
-  const fm = readFm(profilePath);
-  for (const f of REQUIRED_PROFILE_FIELDS) {
-    if (!(f in fm)) errors.push(`humans/${handle}/profile.md: missing field '${f}'`);
-  }
-  const pbDir = join(dir, "playbooks");
-  if (existsSync(pbDir)) {
-    for (const file of readdirSync(pbDir)) {
-      if (!file.endsWith(".md") || file.startsWith("_")) continue;
-      const pbPath = join(pbDir, file);
-      const pbFm = readFm(pbPath);
-      for (const f of REQUIRED_PLAYBOOK_FIELDS) {
-        if (!(f in pbFm)) errors.push(`humans/${handle}/playbooks/${file}: missing field '${f}'`);
+for (const cat of readdirSync(HUMANS_DIR)) {
+  if (cat.startsWith("_") || cat.startsWith(".")) continue;
+  const catDir = join(HUMANS_DIR, cat);
+  if (!statSync(catDir).isDirectory()) continue;
+  for (const handle of readdirSync(catDir)) {
+    if (handle === "README.md" || handle.startsWith(".")) continue;
+    const handleDir = join(catDir, handle);
+    if (!statSync(handleDir).isDirectory()) continue;
+    const profilePath = join(handleDir, "profile.md");
+    if (!existsSync(profilePath)) {
+      errors.push(`humans/${cat}/${handle}: missing profile.md`);
+      continue;
+    }
+    const fm = readFm(profilePath);
+    for (const f of REQUIRED_PROFILE) {
+      if (!(f in fm)) errors.push(`humans/${cat}/${handle}/profile.md: missing field '${f}'`);
+    }
+    const pbDir = join(handleDir, "playbooks");
+    if (existsSync(pbDir)) {
+      for (const file of readdirSync(pbDir)) {
+        if (!file.endsWith(".md") || file.startsWith("_") || file.startsWith(".")) continue;
+        const pbFm = readFm(join(pbDir, file));
+        for (const f of REQUIRED_PLAYBOOK) {
+          if (!(f in pbFm)) errors.push(`humans/${cat}/${handle}/playbooks/${file}: missing field '${f}'`);
+        }
       }
     }
   }

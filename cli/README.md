@@ -45,16 +45,16 @@ opengoat read reddit-fleet-warming --raw   # markdown source
 Print a human's profile and their playbooks list.
 
 ```bash
-opengoat author adrian
-opengoat author adrian --json
+opengoat author <handle>
+opengoat author <handle> --json
 ```
 
 ### `hire <handle>`
 Open the human's booking link in your browser.
 
 ```bash
-opengoat hire adrian
-opengoat hire adrian --print               # print URL instead (for agents)
+opengoat hire <handle>
+opengoat hire <handle> --print               # print URL instead (for agents)
 ```
 
 ### `submit`
@@ -70,7 +70,7 @@ opengoat submit playbook
 Validate frontmatter and content of a profile or playbook locally before submitting.
 
 ```bash
-opengoat verify ./humans/adrian/profile.md
+opengoat verify ./humans/<handle>/profile.md
 opengoat verify .                          # whole repo
 ```
 
@@ -92,7 +92,7 @@ opengoat search "fleet account warming" --json
 opengoat read fleet-warming --json
 
 # Surfaces booking option to user
-opengoat hire adrian --print
+opengoat hire <handle> --print
 ```
 
 ## Stack

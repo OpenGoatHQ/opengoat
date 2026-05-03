@@ -12,6 +12,24 @@ Anyone — humans, agents, CLIs — can search, read, and book directly.
 
 The playbook IS the portfolio. If you can't publish a real playbook, you don't belong here.
 
+## Categories
+
+| | |
+|---|---|
+| [seo/](./humans/seo) | Search and AI-search visibility (incl. GEO) |
+| [content/](./humans/content) | Blog, founder media, ghostwriting, newsletter |
+| [video/](./humans/video) | YouTube, TikTok, Reels, Shorts |
+| [email/](./humans/email) | Lifecycle, cold email, deliverability |
+| [paid/](./humans/paid) | Search, social, sponsorships, influencer |
+| [community/](./humans/community) | Discord, Slack, niche forums |
+| [reddit/](./humans/reddit) | Reddit and distributed marketing at scale |
+| [plg/](./humans/plg) | Product-led growth, onboarding, viral loops |
+| [outbound/](./humans/outbound) | Sales-led, modern outbound, founder-led sales |
+| [launches/](./humans/launches) | Product Hunt, Hacker News, BetaList |
+| [pr/](./humans/pr) | Press, podcasts, creator partnerships |
+| [platform/](./humans/platform) | App stores, marketplaces, integrations |
+| [gtm-engineering/](./humans/gtm-engineering) | Clay, reverse ETL, automation, attribution |
+
 ## How to use it
 
 ### From your browser
@@ -31,14 +49,16 @@ npx open-goat <command>
 
 Commands:
 ```bash
+opengoat list                              # all humans
+opengoat list --tag reddit --available     # filter
 opengoat search "cold email deliverability"
-opengoat read reddit-fleet-warming
-opengoat author adrian
-opengoat hire adrian
+opengoat read <playbook-slug>
+opengoat author <handle>
+opengoat hire <handle>                     # opens booking link
 ```
 
 ### From an AI agent
-Any agent that can run shell commands can call the CLI with `--json`. See [cli/README.md](./cli/README.md).
+Every command supports `--json`. See [cli/README.md](./cli/README.md).
 
 ## How to contribute
 
@@ -58,9 +78,5 @@ Submissions are vetted. Generic, AI-generated, or self-promotional content is re
 ## Links
 
 - Site: [opengoat.com](https://opengoat.com)
-- Org: [github.com/opengoathq](https://github.com/opengoathq)
+- Org: [github.com/OpenGoatHQ](https://github.com/OpenGoatHQ)
 - npm: [`open-goat`](https://www.npmjs.com/package/open-goat) (binary: `opengoat`)
-
-## Maintainers
-
-[@adrian](./humans/adrian) — currently building [Karmable](https://karmable.ai).
