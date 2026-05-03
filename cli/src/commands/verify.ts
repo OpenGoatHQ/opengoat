@@ -2,7 +2,19 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const REQUIRED_PROFILE = ["name", "handle", "specialties", "anti_specialties", "booking_url", "accepting_bookings"];
-const REQUIRED_PLAYBOOK = ["title", "slug", "author", "tags"];
+const REQUIRED_PLAYBOOK = [
+  "name",
+  "slug",
+  "author",
+  "tags",
+  "category",
+  "description",
+  "when_to_use",
+  "when_not_to_use",
+  "duration",
+  "human_required",
+  "cost_hire_min_usd",
+];
 
 export async function verify(target: string) {
   const errors: string[] = [];

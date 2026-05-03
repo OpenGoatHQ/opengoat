@@ -1,0 +1,46 @@
+{
+  "name": "opengoat-mcp",
+  "version": "0.0.1",
+  "description": "MCP server for opengoat: lets AI agents discover and book human operators by reading their playbook skill manifests.",
+  "homepage": "https://opengoat.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenGoatHQ/opengoat.git",
+    "directory": "mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/OpenGoatHQ/opengoat/issues"
+  },
+  "bin": {
+    "opengoat-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "dev": "bun run src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "keywords": [
+    "opengoat",
+    "mcp",
+    "model-context-protocol",
+    "agents",
+    "claude",
+    "growth",
+    "gtm",
+    "human-skills"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ]
+}

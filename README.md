@@ -1,14 +1,20 @@
 # opengoat
 
-> The open directory of growth, GTM, and distribution operators. Each human publishes their real playbooks. Searchable from your terminal. Callable by your AI agents. Free to read. Free to contribute. No take rate.
+> The human-skill registry for the agent era. Each operator publishes their real playbook as a skill manifest — searchable by terminal, callable by AI agents, bookable by anyone. Free to read. Free to contribute. No take rate.
 
-## What this is
+## The thesis
 
-A repo where growth, GTM, and distribution operators publish:
-- A profile (who they are, what they do, what they don't, how to hire them)
-- Their actual playbooks (real methodologies, not LinkedIn fluff)
+AI agents have skills (MCP, Anthropic skills, native tool use). They can find, read, and execute them.
 
-Anyone — humans, agents, CLIs — can search, read, and book directly.
+Humans need the same. A **playbook** is the human equivalent of a skill manifest: it documents *when to use it*, *when not to*, the *prerequisites*, the *outputs*, the *duration*, and the *cost of hiring* the operator who wrote it.
+
+opengoat is the open registry of those manifests. Agents query it, decide whether to execute themselves or surface a human, and book directly. We take 0%.
+
+## What lives in the repo
+
+- A profile per operator: who they are, what they do, what they **don't** do, how to hire them
+- Their real playbooks: methodology with concrete steps, not LinkedIn fluff
+- A frontmatter schema agents can parse: `when_to_use`, `when_not_to_use`, `human_required`, `cost_diy_usd`, `cost_hire_min_usd`, etc.
 
 The playbook IS the portfolio. If you can't publish a real playbook, you don't belong here.
 
@@ -37,18 +43,10 @@ Browse [humans/](./humans). Read a playbook. Click the booking link in the autho
 
 ### From your terminal
 
-Install once:
 ```bash
-npm i -g open-goat
-```
+npm i -g open-goat        # install once
+# or: npx open-goat <command>
 
-Or run on the fly via npx (no install):
-```bash
-npx open-goat <command>
-```
-
-Commands:
-```bash
 opengoat list                              # all humans
 opengoat list --tag reddit --available     # filter
 opengoat search "cold email deliverability"
@@ -57,12 +55,29 @@ opengoat author <handle>
 opengoat hire <handle>                     # opens booking link
 ```
 
-### From an AI agent
 Every command supports `--json`. See [cli/README.md](./cli/README.md).
+
+### From an AI agent (MCP)
+
+```bash
+npm i -g opengoat-mcp
+```
+
+Add to your MCP config (Claude Desktop, Cursor, Codex, Cline):
+
+```json
+{
+  "mcpServers": {
+    "opengoat": { "command": "opengoat-mcp" }
+  }
+}
+```
+
+Tools exposed to the agent: `search_humans`, `read_playbook`, `get_author`, `get_booking_url`. See [mcp/README.md](./mcp/README.md).
 
 ## How to contribute
 
-You publish a profile + at least one real playbook.
+Publish a profile + at least one real playbook.
 
 ```bash
 opengoat submit
@@ -72,11 +87,12 @@ Submissions are vetted. Generic, AI-generated, or self-promotional content is re
 
 ## License
 
-- Code (CLI, scripts): MIT
+- Code (CLI, MCP server, scripts): MIT
 - Content (profiles, playbooks): CC-BY 4.0 (authors keep credit)
 
 ## Links
 
 - Site: [opengoat.com](https://opengoat.com)
 - Org: [github.com/OpenGoatHQ](https://github.com/OpenGoatHQ)
-- npm: [`open-goat`](https://www.npmjs.com/package/open-goat) (binary: `opengoat`)
+- npm CLI: [`open-goat`](https://www.npmjs.com/package/open-goat) (binary: `opengoat`)
+- npm MCP: [`opengoat-mcp`](https://www.npmjs.com/package/opengoat-mcp)

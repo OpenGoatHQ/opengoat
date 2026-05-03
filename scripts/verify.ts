@@ -11,7 +11,19 @@ const ROOT = join(import.meta.dir, "..");
 const HUMANS_DIR = join(ROOT, "humans");
 
 const REQUIRED_PROFILE = ["name", "handle", "specialties", "anti_specialties", "booking_url", "accepting_bookings"];
-const REQUIRED_PLAYBOOK = ["title", "slug", "author", "tags"];
+const REQUIRED_PLAYBOOK = [
+  "name",
+  "slug",
+  "author",
+  "tags",
+  "category",
+  "description",
+  "when_to_use",
+  "when_not_to_use",
+  "duration",
+  "human_required",
+  "cost_hire_min_usd",
+];
 
 const errors: string[] = [];
 
