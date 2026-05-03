@@ -17,6 +17,7 @@ type Human = {
   category: string;
   profile: Record<string, any>;
   profile_body: string;
+  goat: { frontmatter: Record<string, any>; body: string } | null;
   playbooks: Playbook[];
 };
 
@@ -81,6 +82,14 @@ function loadHumans(): Human[] {
       const profilePath = join(handleDir, "profile.md");
       if (!existsSync(profilePath)) continue;
       const { fm, body } = parseFrontmatter(readFileSync(profilePath, "utf8"));
+
+      const goatPath = join(handleDir, "goat.md");
+      let goat: { frontmatter: Record<string, any>; body: string } | null = null;
+      if (existsSync(goatPath)) {
+        const parsed = parseFrontmatter(readFileSync(goatPath, "utf8"));
+        goat = { frontmatter: parsed.fm, body: parsed.body };
+      }
+
       const playbooks: Playbook[] = [];
       const pbDir = join(handleDir, "playbooks");
       if (existsSync(pbDir)) {
@@ -96,7 +105,7 @@ function loadHumans(): Human[] {
           });
         }
       }
-      result.push({ handle, category: cat, profile: fm, profile_body: body, playbooks });
+      result.push({ handle, category: cat, profile: fm, profile_body: body, goat, playbooks });
     }
   }
   return result;
@@ -107,6 +116,8 @@ const index = {
   generated_at: new Date().toISOString(),
   count_humans: humans.length,
   count_playbooks: humans.reduce((n, h) => n + h.playbooks.length, 0),
+  count_runnable_playbooks: humans.reduce((n, h) => n + h.playbooks.filter((pb) => pb.frontmatter.runnable).length, 0),
+  count_with_goat_file: humans.filter((h) => h.goat).length,
   count_categories: new Set(humans.map((h) => h.category)).size,
   humans,
 };

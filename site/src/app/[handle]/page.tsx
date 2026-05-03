@@ -83,6 +83,15 @@ export default async function HumanPage({ params }: { params: Promise<{ handle: 
         <Markdown>{human.profile_body}</Markdown>
       </section>
 
+      {human.goat && (
+        <section className="mt-12 rounded-lg border border-accent/40 bg-panel p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs uppercase tracking-wider text-accent">why hire {name} beyond their skills</span>
+          </div>
+          <Markdown>{human.goat.body}</Markdown>
+        </section>
+      )}
+
       {human.playbooks.length > 0 && (
         <section className="mt-12">
           <h2 className="text-2xl font-semibold text-ink mb-4">Playbooks</h2>

@@ -44,6 +44,7 @@ export default async function PlaybookPage({ params }: { params: Promise<{ slug:
   const costMax = playbook.frontmatter.cost_hire_max_usd as number | undefined;
   const booking = ensureUrl(author.profile.booking_url);
   const authorName = (author.profile.name as string) || author.handle;
+  const runnable = playbook.frontmatter.runnable as Record<string, any> | undefined;
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
@@ -70,6 +71,36 @@ export default async function PlaybookPage({ params }: { params: Promise<{ slug:
           </span>
         )}
       </div>
+
+      {runnable && (
+        <section className="mt-10 rounded-lg border border-accent/50 bg-panel p-6">
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <div className="text-xs uppercase tracking-wider text-accent mb-2">Runnable skill</div>
+              <div className="text-ink font-semibold text-lg">
+                Run via {runnable.via}
+                {typeof runnable.cost_per_run_usd === "number" && (
+                  <span className="text-dim font-normal text-base"> · ${runnable.cost_per_run_usd}/run</span>
+                )}
+              </div>
+              <p className="text-dim text-sm mt-1">
+                {runnable.via === "orthogonal" && (
+                  <>Calls <code className="text-ink">api.orthogonal.com/v1/run</code> with <code className="text-ink">{String(runnable.api)}{String(runnable.path || "")}</code>. Bring your orthogonal API key.</>
+                )}
+                {runnable.via === "http" && (
+                  <>Calls <code className="text-ink">{String(runnable.endpoint)}</code> directly. Operator-managed infra.</>
+                )}
+                {runnable.via === "mcp" && (
+                  <>MCP server <code className="text-ink">{String(runnable.server)}</code>, tool <code className="text-ink">{String(runnable.tool)}</code>. Install and run via your agent.</>
+                )}
+              </p>
+            </div>
+            <code className="text-xs px-2 py-1 rounded bg-black border border-border text-dim mono">
+              goat run {playbook.slug}
+            </code>
+          </div>
+        </section>
+      )}
 
       {(whenToUse.length > 0 || whenNotToUse.length > 0) && (
         <div className="mt-10 grid gap-4 md:grid-cols-2">
@@ -119,7 +150,11 @@ export default async function PlaybookPage({ params }: { params: Promise<{ slug:
 
       <section className="mt-12 rounded-lg border border-border bg-panel p-6">
         <div className="text-ink text-lg font-medium">Hire {authorName} to do this</div>
-        <p className="text-dim text-sm mt-2">Direct booking. opengoat takes 0%.</p>
+        <p className="text-dim text-sm mt-2">
+          Direct booking. opengoat takes 0%.{author.goat && (
+            <> Read <Link href={`/${author.handle}#why`} className="text-accent hover:underline">why {authorName} beats running this skill alone</Link>.</>
+          )}
+        </p>
         {booking ? (
           <a
             href={booking}

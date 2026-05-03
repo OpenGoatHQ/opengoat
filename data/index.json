@@ -1,7 +1,9 @@
 {
-  "generated_at": "2026-05-03T03:40:49.726Z",
+  "generated_at": "2026-05-03T06:18:12.828Z",
   "count_humans": 0,
   "count_playbooks": 0,
+  "count_runnable_playbooks": 0,
+  "count_with_goat_file": 0,
   "count_categories": 0,
   "humans": []
 }

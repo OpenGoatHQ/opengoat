@@ -52,7 +52,17 @@ flowchart TD
     E --> H[Claude / Cursor / Codex<br/>find &amp; book humans]
 ```
 
-Each operator's profile is markdown with structured frontmatter. Each playbook is a **skill manifest** agents can parse:
+## Each operator publishes three things
+
+```
+humans/<category>/<handle>/
+├── profile.md          # who, rates, anti-specialties, hire link
+├── goat.md             # what AI gets wrong + what the human adds beyond their skills
+└── playbooks/
+    └── <slug>.md       # skill manifests, optionally runnable
+```
+
+The **playbook** is a skill manifest agents can parse:
 
 ```yaml
 ---
@@ -64,10 +74,28 @@ duration: 4-6 weeks
 human_required: false
 cost_hire_min_usd: 5000
 cost_hire_max_usd: 15000
+
+# Optional: make the skill executable
+runnable:
+  via: orthogonal              # orthogonal | http | mcp
+  api: sixtyfour
+  path: /enrich-lead
+  cost_per_run_usd: 0.50
 ---
 ```
 
-Agents read this and decide: execute the playbook themselves, or surface the operator to the user for hiring.
+The **goat.md** is the file that justifies hiring the human over running the skill standalone. It documents:
+- Where AI fails in the operator's domain
+- What the operator adds beyond their published skills
+- When the skill is enough vs. when to hire
+
+Three paths for any user / agent / buyer:
+
+| Path | Cost | When |
+|---|---|---|
+| 📖 **Read the playbook** | free | DIY, low stakes, follow the methodology yourself |
+| ⚡ **Run the skill** (when runnable) | $0.50–$X / run | Automate. Cheap. Cheap is sometimes enough. |
+| 👤 **Hire the human** | $5k+ | Stakes, judgement, accountability, edge cases |
 
 ## Three surfaces, one source of truth
 

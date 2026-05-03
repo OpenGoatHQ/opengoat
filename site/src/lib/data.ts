@@ -14,7 +14,20 @@ export type Human = {
   category: string;
   profile: Record<string, any>;
   profile_body: string;
+  goat: { frontmatter: Record<string, any>; body: string } | null;
   playbooks: Playbook[];
+};
+
+export type Runnable = {
+  via: "orthogonal" | "http" | "mcp";
+  cost_per_run_usd?: number;
+  api?: string;
+  path?: string;
+  endpoint?: string;
+  method?: string;
+  server?: string;
+  tool?: string;
+  inputs?: Array<{ name: string; type: string; required?: boolean }>;
 };
 
 export type Playbook = {

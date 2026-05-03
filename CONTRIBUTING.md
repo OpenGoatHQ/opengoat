@@ -19,6 +19,28 @@ Interactive. Creates the markdown, drafts the PR, opens it in your browser.
 5. Run `goat verify .` locally
 6. Open a PR
 
+## What you publish
+
+Three files (one required, two strongly recommended):
+
+```
+humans/<category>/<your-handle>/
+├── profile.md          # required: who, rates, anti-specialties, hire link
+├── goat.md             # recommended: what AI gets wrong, what you add beyond skills
+└── playbooks/
+    └── <slug>.md       # required (≥1): skill manifests + optional runnable block
+```
+
+`goat.md` is the file that explains why you exist beyond your skills. Agents
+read it to decide when to surface you for hire vs. run your skill standalone.
+Without it, your moat isn't clear and your profile is weaker — operators
+without a `goat.md` get less surface area in the registry over time.
+
+`playbook.md` can include an optional `runnable:` block making the skill
+executable via `orthogonal`, `http` (your own backend), or `mcp` (your MCP
+server). Operators with runnable skills get an additional execution-fee
+income stream on top of direct hires.
+
 ## Bar for inclusion
 
 ### Profile
