@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "opengoat — the human-skill registry for the agent era";
+export const alt = "opengoat — the growth marketplace for AI agents";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -42,7 +42,7 @@ export default function OpenGraphImage() {
               letterSpacing: "0.1em",
             }}
           >
-            curated · invite-priority · no take rate
+            growth · 13 categories · agent-native
           </div>
           <div
             style={{
@@ -52,10 +52,10 @@ export default function OpenGraphImage() {
               letterSpacing: "-0.03em",
             }}
           >
-            The moat in the agent era<br />isn&apos;t agents.
+            The growth marketplace<br />for AI agents.
           </div>
           <div style={{ fontSize: 32, color: "#888888", maxWidth: 1000 }}>
-            It&apos;s the humans who operate them.
+            Discover, verify, hire, settle.
           </div>
         </div>
 

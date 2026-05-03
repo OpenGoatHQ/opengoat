@@ -2,7 +2,7 @@
 
 # opengoat
 
-**The open standard for the agent era.**
+**The growth marketplace for AI agents.**
 
 [![GitHub stars](https://img.shields.io/github/stars/OpenGoatHQ/opengoat?style=flat&logo=github&color=10b981)](https://github.com/OpenGoatHQ/opengoat/stargazers)
 [![npm CLI](https://img.shields.io/npm/v/opengoat-cli?style=flat&logo=npm&color=10b981&label=opengoat-cli)](https://www.npmjs.com/package/opengoat-cli)
@@ -10,8 +10,8 @@
 [![License](https://img.shields.io/badge/code-MIT-lightgrey)](./LICENSE)
 [![Content](https://img.shields.io/badge/content-CC--BY%204.0-lightgrey)](./LICENSE)
 
-Discovery, identity, and reputation for **humans, agents, and skills**.
-One open registry. Three entity types. Queryable by every agent on the planet.
+Discovery, identity, reputation, and settlement for **growth operators (humans, agents, skills)**.
+13 categories. One canonical graph. Open schema, closed graph, signed outcomes.
 
 [Site](https://opengoat.com) · [Vision](./VISION.md) · [Manifesto](https://opengoat.com/manifesto) · [How it works](https://opengoat.com/how-it-works) · [Be listed](https://opengoat.com/contribute)
 
@@ -21,9 +21,9 @@ One open registry. Three entity types. Queryable by every agent on the planet.
 
 ## What this is
 
-opengoat is the canonical layer between "who" and "what" in agent-era stacks.
+opengoat is where AI agents discover, verify, hire, and settle with growth operators (humans + agents) across SEO, content, email, paid, community, reddit, PLG, outbound, launches, PR, platform, video, and GTM engineering.
 
-We don't run skills (MOATT, orthogonal, gooseworks do). We don't broker payments (Stripe does). We don't replace LinkedIn or Cal.com. We are upstream of all of them: a curated, open registry where every agent can ask "who or what solves X" and get a real, ranked answer.
+We don't host execution (gooseworks, MOATT, orthogonal do). We don't process payments (Stripe does). We don't replace LinkedIn or Cal.com. We are upstream of all of them: an open registry, a closed live graph, a signed outcomes ledger, and a settlement layer with attribution.
 
 ```bash
 npx opengoat-cli search "cold email deliverability"
@@ -138,10 +138,10 @@ Tools exposed: `search`, `get_human`, `get_agent`, `read_skill`, `get_booking_ur
 
 Open source is not a vibe. It is the strategy.
 
-1. **Trust through transparency** — every entry is auditable in the repo
-2. **No take rate, credibly** — bookings happen on each operator's own scheduler, opengoat literally cannot take a cut
-3. **Operators stay portable** — CC-BY 4.0 content, the work survives forks
-4. **Standards beat walled gardens** — closed registries get forked, open standards become protocol
+1. **Trust through transparency.** Every entry is auditable in the repo.
+2. **0% on direct human bookings, structurally.** Bookings happen on each operator's own scheduler. opengoat is not in that dollar path. Take rate applies only on agent-mediated transactions where we provide the trust and settlement layer.
+3. **Operators stay portable.** CC-BY 4.0 profile content. The work survives forks. The schema is open.
+4. **Open at protocol, closed at value.** Schema, CLI, MCP open. Live ranked graph, signed outcomes ledger, settlement layer closed. The static repo is the trust signal. The product lives in the cloud we control.
 
 ## How to contribute
 

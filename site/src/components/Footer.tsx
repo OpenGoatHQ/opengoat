@@ -6,7 +6,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 flex flex-col sm:flex-row gap-6 justify-between text-sm text-dim">
         <div>
           <div className="text-ink font-semibold">opengoat</div>
-          <div>The human-skill registry for the agent era.</div>
+          <div>The growth marketplace for AI agents.</div>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           <Link href="/manifesto" className="hover:text-ink transition">Manifesto</Link>

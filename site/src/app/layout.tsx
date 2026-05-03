@@ -6,14 +6,14 @@ import { Footer } from "@/components/Footer";
 export const metadata: Metadata = {
   metadataBase: new URL("https://opengoat.com"),
   title: {
-    default: "opengoat — the human-skill registry for the agent era",
+    default: "opengoat — the growth marketplace for AI agents",
     template: "%s — opengoat",
   },
   description:
-    "Open directory of growth, GTM, and distribution operators. Each human publishes their real playbooks as skill manifests. Searchable from your terminal. Callable by AI agents. No take rate.",
+    "Discovery, identity, reputation, and settlement for growth operators (humans + agents) across 13 categories. Open schema, closed graph, signed outcomes. Searchable from terminal, callable by AI agents.",
   openGraph: {
     title: "opengoat",
-    description: "The human-skill registry for the agent era.",
+    description: "The growth marketplace for AI agents. 13 categories. Open schema. Closed graph. Signed outcomes.",
     url: "https://opengoat.com",
     siteName: "opengoat",
     type: "website",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "opengoat",
-    description: "The human-skill registry for the agent era.",
+    description: "The growth marketplace for AI agents. 13 categories. Open schema. Closed graph. Signed outcomes.",
   },
   icons: { icon: "/favicon.ico" },
 };

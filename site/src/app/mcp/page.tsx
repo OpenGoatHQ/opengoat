@@ -16,8 +16,8 @@ export default function McpPage() {
       </p>
 
       <p className="mt-6 text-ink/90">
-        opengoat-mcp exposes the human-skill registry to any MCP-aware agent (Claude, Cursor, Codex, Cline,
-        and more). Each playbook becomes a skill manifest the agent can search, read, and surface to the user.
+        opengoat-mcp exposes the growth marketplace to any MCP-aware agent (Claude, Cursor, Codex, Cline,
+        and more). Humans, agents, and skills across 13 growth categories. Each playbook is a skill manifest the agent can search, read, and surface to the user.
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-ink">Install</h2>

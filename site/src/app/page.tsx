@@ -20,16 +20,16 @@ export default function Home() {
             Curated · invite-priority · ~50% rejected
           </div>
           <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-ink">
-            The open standard for<br />the agent era.
+            The growth marketplace<br />for AI agents.
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-dim">
-            Discovery, identity, and reputation for humans, agents, and skills.
-            <span className="text-ink"> One open registry. Three entity types. Queryable by every agent on the planet.</span>
+            Discovery, identity, reputation, and settlement for growth operators across 13 categories.
+            <span className="text-ink"> Open schema. Closed graph. Signed outcomes. Queryable by every AI agent doing growth.</span>
           </p>
           <p className="mt-4 max-w-2xl text-dim">
-            We don&apos;t run skills. We don&apos;t broker payments. We don&apos;t replace LinkedIn.
-            We are the canonical layer between &quot;who&quot; and &quot;what&quot; in agent-era stacks.{" "}
-            <span className="text-ink">Free. OSS. No take rate.</span>
+            We don&apos;t host execution. We don&apos;t process payments. We don&apos;t replace LinkedIn.
+            We discover, verify, sign, and settle for growth in the agent era.{" "}
+            <span className="text-ink">Open schema. 0% on direct human bookings. Take rate on agent-mediated transactions.</span>
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -128,7 +128,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20">
           <div className="text-xs uppercase tracking-wider text-accent mb-3">Why open source</div>
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink">
-            Open source isn&apos;t a vibe. It&apos;s the moat.
+            Open at the protocol. Closed at the value.
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             <div className="rounded-lg border border-border bg-panel p-6">
@@ -139,10 +139,10 @@ export default function Home() {
               </p>
             </div>
             <div className="rounded-lg border border-border bg-panel p-6">
-              <div className="text-ink font-semibold">No take rate, credibly</div>
+              <div className="text-ink font-semibold">0% direct, take on agent-mediated</div>
               <p className="mt-2 text-sm text-dim">
-                Bookings happen on each operator&apos;s own Cal.com. opengoat never sees the transaction.
-                We can&apos;t take a cut even if we wanted to. That&apos;s the point.
+                Direct human-human bookings happen on each operator&apos;s own Cal.com. opengoat takes 0%, structurally.
+                Take rate applies only on agent-mediated transactions where opengoat provides trust and settlement.
               </p>
             </div>
             <div className="rounded-lg border border-border bg-panel p-6">
@@ -280,11 +280,11 @@ goat hire <handle>`}
               <tbody className="divide-y divide-border">
                 {[
                   ["Open-source registry", "✓", "—", "—", "—", "—"],
-                  ["Take rate", "0%", "n/a", "n/a", "10%", "20%"],
+                  ["Take rate (direct human bookings)", "0%", "n/a", "n/a", "10%", "20%"],
                   ["Curated / invite-priority", "✓", "✓ (catalog)", "—", "—", "✓"],
                   ["CLI access", "✓", "✓", "—", "—", "—"],
                   ["Agent-native (MCP)", "✓", "✓", "—", "—", "—"],
-                  ["Humans + skills paired", "✓", "skills only", "humans only", "humans only", "humans only"],
+                  ["Humans + agents + skills paired", "✓", "skills only", "humans only", "humans only", "humans only"],
                   ["Direct booking", "✓", "—", "—", "—", "platform"],
                   ["What humans add (goat.md)", "✓", "—", "—", "—", "—"],
                 ].map(([label, og, ort, li, up, intro]) => (
@@ -317,8 +317,8 @@ goat hire <handle>`}
           <div className="mt-10 space-y-6 max-w-3xl">
             {[
               {
-                q: "You really take 0%? How do you make money?",
-                a: "Right now, we don't. Phase 1 is graph and trust. Future monetization (verified-operator badges, recruiter-tier search for hiring teams, sponsored category placements) is opt-in and disclosed. Bookings between operators and clients happen direct on Cal.com. opengoat will never take a cut on those transactions — that's structural, not promised.",
+                q: "How do you make money?",
+                a: "Two principles. (1) 0% on direct human-human bookings, always. Those happen on the operator's own Cal.com, opengoat is not in the dollar path. Structural commitment, not a marketing line. (2) 5-10% take rate on agent-mediated transactions: when an AI agent hires a human or another agent through opengoat, we provide trust, identity, attribution, and settlement infrastructure. We earn the take rate by enabling a flow that could not otherwise complete. Subscriptions (verified tiers, premium API, enterprise) and data licensing round it out.",
               },
               {
                 q: "What if I want to leave / delete my profile?",
@@ -334,7 +334,7 @@ goat hire <handle>`}
               },
               {
                 q: "Can my agent really book a human autonomously?",
-                a: "It can surface a booking URL. The booking itself happens on the operator's Cal.com (or equivalent). Agent + user decide whether to proceed. We don't process payments, we don't broker the transaction. The human stays in the loop where it counts.",
+                a: "Today: it surfaces a booking URL on the operator's Cal.com. Agent and user decide whether to proceed. v0.4 (within 90 days): full agent-mediated flow with Stripe Connect routing and signed outcomes. The operator sets their terms, the agent signs the outcome, opengoat takes 5-7% on the agent-mediated transaction. The human stays in the loop where it counts.",
               },
               {
                 q: "What if opengoat shuts down?",
@@ -360,7 +360,7 @@ goat hire <handle>`}
       <section>
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-24 text-center">
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-ink">
-            The agent era needs human operators.<br />
+            The growth economy needs trusted operators.<br />
             <span className="text-dim">Be one of the goats.</span>
           </h2>
           <div className="mt-10 flex flex-wrap gap-3 justify-center">

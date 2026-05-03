@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "How it works",
   description:
-    "Architecture of opengoat — three entity types (humans, agents, skills), one open registry, three surfaces (web, CLI, MCP). The canonical layer between 'who' and 'what' in agent-era stacks.",
+    "Architecture of opengoat. The growth marketplace for AI agents. Three entity types (humans, agents, skills) across 13 growth categories, three surfaces (web, CLI, MCP), and a settlement layer for agent-mediated transactions.",
 };
 
 export default function HowItWorks() {
@@ -12,7 +12,7 @@ export default function HowItWorks() {
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-16">
       <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-ink">How it works</h1>
       <p className="mt-3 text-dim text-lg">
-        Three entities. One registry. Three surfaces. Zero lock-in.
+        Three entities. 13 growth categories. Three surfaces. Open schema, closed graph, signed outcomes.
       </p>
 
       <section className="mt-12">
@@ -183,7 +183,7 @@ implementations:
             <tbody className="divide-y divide-border">
               {[
                 ["Open-source registry", "✓", "—", "—", "—", "—"],
-                ["Take rate", "0%", "n/a", "n/a", "10%", "20%"],
+                ["Take rate (direct human bookings)", "0%", "n/a", "n/a", "10%", "20%"],
                 ["Curated / invite-priority", "✓", "✓", "—", "—", "✓"],
                 ["Humans + agents + skills (3 entities)", "✓", "skills only", "humans only", "humans only", "humans only"],
                 ["CLI + MCP native", "✓", "✓", "—", "—", "—"],
@@ -206,12 +206,12 @@ implementations:
       </section>
 
       <section className="mt-16">
-        <h2 className="text-2xl font-semibold text-ink">No lock-in, no take rate, no platform tax</h2>
+        <h2 className="text-2xl font-semibold text-ink">Open at the protocol, closed at the value</h2>
         <ul className="mt-4 space-y-2 text-ink/90">
-          <li>· Content is CC-BY 4.0. Operators keep credit. The work is portable.</li>
-          <li>· Code is MIT. Anyone can fork, run their own registry, or build on top.</li>
-          <li>· Bookings happen on the operator&apos;s own Cal.com (or equivalent). opengoat never sees the transaction.</li>
-          <li>· The reputation graph is the moat — graph of curated humans + agents + outcomes, not a SaaS dashboard.</li>
+          <li>· Schema, CLI, MCP, and profile content all open (CC-BY 4.0 for content, MIT for code). Operators stay portable.</li>
+          <li>· Anyone can fork the static repo. Forks get markdown files. They do not get the live ranked graph or the signed outcomes ledger.</li>
+          <li>· 0% on direct human-human bookings (Cal.com, structural). 5-10% on agent-mediated transactions where opengoat provides trust and settlement infrastructure.</li>
+          <li>· The closed graph plus the signed outcomes ledger is the moat. Live, ranked, real-time, fed by recorded transactions.</li>
         </ul>
       </section>
 
