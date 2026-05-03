@@ -11,7 +11,7 @@
 - [ ] My playbook has concrete steps, not generic advice
 - [ ] My playbook has a "When NOT to use" section
 - [ ] No AI-generated content
-- [ ] `opengoat verify .` passes locally (or `npx open-goat verify .`)
+- [ ] `goat verify .` passes locally (or `npx opengoat-cli verify .`)
 
 ## Verifiable past work
 List 2-3 links or named clients (anonymized OK if NDA):

@@ -1,14 +1,29 @@
 # opengoat CLI
 
 ```bash
-# Install once
-npm i -g open-goat
-
-# Or run on the fly via npx (no install)
-npx open-goat <command>
+npm i -g opengoat-cli
+# or
+npx opengoat-cli <command>
 ```
 
-The npm package is `open-goat`. The binary it installs is `opengoat`.
+The npm package is `opengoat-cli`. The binary it installs is `goat`.
+
+## Quickstart
+
+```bash
+goat reddit                                   # list reddit operators
+goat seo                                      # list seo operators
+goat search "cold email deliverability"
+goat read <playbook-slug>
+goat author <handle>
+goat hire <handle>                            # opens booking link
+goat submit                                   # contribution wizard
+goat verify .                                 # validate locally
+```
+
+## Shorthand
+
+`goat <category>` is sugar for `goat list --tag <category>`. Works for all 13 categories: `seo`, `content`, `video`, `email`, `paid`, `community`, `reddit`, `plg`, `outbound`, `launches`, `pr`, `platform`, `gtm-engineering`.
 
 ## Commands
 
@@ -16,88 +31,79 @@ The npm package is `open-goat`. The binary it installs is `opengoat`.
 List humans, optionally filtered.
 
 ```bash
-opengoat list                              # all
-opengoat list --tag reddit                 # filtered by tag
-opengoat list --available                  # only accepting bookings
-opengoat list --max-rate 500               # max hourly USD
-opengoat list --json                       # machine-readable
+goat list                              # all
+goat list --tag reddit                 # filtered by tag
+goat list --available                  # only accepting bookings
+goat list --max-rate 500               # max hourly USD
+goat list --json                       # machine-readable
 ```
 
 ### `search <query>`
 Full-text search across playbooks and profiles.
 
 ```bash
-opengoat search "cold email deliverability"
-opengoat search "reddit launch" --json
+goat search "cold email deliverability"
+goat search "reddit launch" --json
 ```
-
-Output: matching playbooks and authors, sorted by relevance.
 
 ### `read <playbook-slug>`
 Print a playbook to stdout.
 
 ```bash
-opengoat read reddit-fleet-warming
-opengoat read reddit-fleet-warming --raw   # markdown source
+goat read reddit-fleet-warming
+goat read reddit-fleet-warming --raw   # markdown source with frontmatter
 ```
 
 ### `author <handle>`
-Print a human's profile and their playbooks list.
+Print a human's profile and playbooks list.
 
 ```bash
-opengoat author <handle>
-opengoat author <handle> --json
+goat author <handle>
+goat author <handle> --json
 ```
 
 ### `hire <handle>`
 Open the human's booking link in your browser.
 
 ```bash
-opengoat hire <handle>
-opengoat hire <handle> --print               # print URL instead (for agents)
+goat hire <handle>
+goat hire <handle> --print             # print URL instead (for agents)
 ```
 
 ### `submit`
-Interactive wizard. Creates a profile or new playbook, drafts the PR.
+Steps to submit a profile or playbook (interactive wizard in v0.2).
 
 ```bash
-opengoat submit                            # asks: profile or playbook
-opengoat submit profile
-opengoat submit playbook
+goat submit
 ```
 
 ### `verify`
-Validate frontmatter and content of a profile or playbook locally before submitting.
+Validate frontmatter and content locally before submitting.
 
 ```bash
-opengoat verify ./humans/<handle>/profile.md
-opengoat verify .                          # whole repo
+goat verify .
+goat verify ./humans/reddit/<handle>/profile.md
 ```
 
 ## Global flags
 
 - `--json` — machine-readable output (for agents)
 - `--no-cache` — bypass local cache (default: 1h TTL)
-- `--registry <url>` — point to a custom registry (default: github.com/opengoathq/opengoat)
+- `--registry <url>` — point to a custom registry (default: github.com/OpenGoatHQ/opengoat)
 
 ## For AI agents
 
-Every command supports `--json`. Example workflow:
+Every command supports `--json`. For native MCP integration with Claude / Cursor / Codex, see [`opengoat-mcp`](https://www.npmjs.com/package/opengoat-mcp).
 
 ```bash
-# Agent searches for relevant expertise
-opengoat search "fleet account warming" --json
-
-# Reads top-matched playbook
-opengoat read fleet-warming --json
-
-# Surfaces booking option to user
-opengoat hire <handle> --print
+goat search "fleet account warming" --json
+goat read fleet-warming --json
+goat hire <handle> --print
 ```
 
 ## Stack
 
 - TypeScript + commander
-- Data source: `data/index.json` (auto-built from `humans/**`)
+- Reads `data/index.json` (local in-repo) or fetches from `raw.githubusercontent.com/OpenGoatHQ/opengoat/main/data/index.json`
 - Cached locally for 1h
 - Zero auth, zero network on most commands after first fetch

@@ -1,18 +1,18 @@
 {
-  "name": "open-goat",
+  "name": "opengoat-cli",
   "version": "0.0.1",
-  "description": "opengoat CLI: open directory of growth, GTM, and distribution operators. Searchable from your terminal. Callable by AI agents.",
+  "description": "opengoat CLI: hire goats of growth, GTM, and distribution from your terminal. Pairs with opengoat-mcp for AI agents.",
   "homepage": "https://opengoat.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/opengoathq/opengoat.git",
+    "url": "https://github.com/OpenGoatHQ/opengoat.git",
     "directory": "cli"
   },
   "bugs": {
-    "url": "https://github.com/opengoathq/opengoat/issues"
+    "url": "https://github.com/OpenGoatHQ/opengoat/issues"
   },
   "bin": {
-    "opengoat": "./dist/index.js"
+    "goat": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "type": "module",

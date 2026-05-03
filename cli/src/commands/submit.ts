@@ -13,7 +13,7 @@ export async function submit(type: string | undefined, opts: Opts) {
       "Fork https://github.com/OpenGoatHQ/opengoat",
       `Copy humans/_template/ to humans/<category>/<your-handle>/`,
       `Fill profile.md and at least one playbook.md (see _template files)`,
-      `Run 'opengoat verify .' locally`,
+      `Run 'goat verify .' locally`,
       `Open a PR. Reviewed within 7 days.`,
     ],
     target,

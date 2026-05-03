@@ -114,8 +114,9 @@ export default function Home() {
               <div className="text-xs text-dim mb-2">CLI</div>
               <div className="text-ink font-semibold">From your terminal</div>
               <pre className="mt-3 text-sm mono text-dim">
-{`npm i -g open-goat
-opengoat search "cold email"`}
+{`npm i -g opengoat-cli
+goat reddit
+goat search "cold email"`}
               </pre>
             </Link>
             <Link

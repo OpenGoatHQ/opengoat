@@ -6,8 +6,8 @@ Two ways to contribute: as a human (add yourself + playbooks), or as a reader (o
 
 ### Easy way (CLI)
 ```bash
-opengoat submit          # if installed globally (npm i -g open-goat)
-npx open-goat submit     # one-shot via npx (no install)
+goat submit                # if installed globally (npm i -g opengoat-cli)
+npx opengoat-cli submit    # one-shot via npx (no install)
 ```
 Interactive. Creates the markdown, drafts the PR, opens it in your browser.
 
@@ -16,7 +16,7 @@ Interactive. Creates the markdown, drafts the PR, opens it in your browser.
 2. Copy `humans/_template/` to `humans/<category>/<your-handle>/` (pick the category folder that fits)
 3. Fill `profile.md`
 4. Add at least 1 real playbook in `playbooks/` (follow `_template.md`)
-5. Run `opengoat verify .` locally
+5. Run `goat verify .` locally
 6. Open a PR
 
 ## Bar for inclusion

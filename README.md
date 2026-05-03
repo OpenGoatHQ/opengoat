@@ -5,7 +5,7 @@
 **The moat in the agent era isn't agents. It's the humans who operate them.**
 
 [![GitHub stars](https://img.shields.io/github/stars/OpenGoatHQ/opengoat?style=flat&logo=github&color=10b981)](https://github.com/OpenGoatHQ/opengoat/stargazers)
-[![npm CLI](https://img.shields.io/npm/v/open-goat?style=flat&logo=npm&color=10b981&label=open-goat)](https://www.npmjs.com/package/open-goat)
+[![npm CLI](https://img.shields.io/npm/v/opengoat-cli?style=flat&logo=npm&color=10b981&label=opengoat-cli)](https://www.npmjs.com/package/opengoat-cli)
 [![npm MCP](https://img.shields.io/npm/v/opengoat-mcp?style=flat&logo=npm&color=10b981&label=opengoat-mcp)](https://www.npmjs.com/package/opengoat-mcp)
 [![License](https://img.shields.io/badge/code-MIT-lightgrey)](./LICENSE)
 [![Content](https://img.shields.io/badge/content-CC--BY%204.0-lightgrey)](./LICENSE)
@@ -25,7 +25,8 @@ Skills get commoditized. Tools are APIs. What stays defensible is the curated ne
 opengoat is the registry of those humans — open, queryable from your terminal, callable by your AI agents, bookable by anyone.
 
 ```bash
-npx open-goat search "cold email deliverability"
+npx opengoat-cli reddit                              # list reddit operators
+npx opengoat-cli search "cold email deliverability"  # full-text search
 ```
 
 ```
@@ -44,7 +45,7 @@ npx open-goat search "cold email deliverability"
 flowchart TD
     A[humans/&lt;category&gt;/&lt;handle&gt;/<br/>profile.md + playbooks/*.md<br/><br/>The repo = source of truth] --> B[Auto-generated<br/>data/index.json]
     B --> C[opengoat.com<br/>web product]
-    B --> D[npm: open-goat<br/>CLI for devs]
+    B --> D[npm: opengoat-cli<br/>binary: goat]
     B --> E[npm: opengoat-mcp<br/>MCP server for AI agents]
     C --> F[Humans browse<br/>profiles &amp; playbooks]
     D --> G[Devs script<br/>discovery + hiring]
@@ -73,7 +74,7 @@ Agents read this and decide: execute the playbook themselves, or surface the ope
 | Audience | Surface | What it does |
 |---|---|---|
 | **Humans browsing** | [opengoat.com](https://opengoat.com) | Beautiful profiles, playbook pages, search, booking links |
-| **Devs scripting** | `npm: open-goat` | Terminal search, JSON output, scriptable hiring |
+| **Devs scripting** | `npm: opengoat-cli` (binary `goat`) | Terminal search, JSON output, scriptable hiring |
 | **AI agents** | `npm: opengoat-mcp` | MCP server, 4 tools, native Claude/Cursor/Codex integration |
 
 All three read from `data/index.json`, auto-rebuilt on every push. The repo stays the source of truth — no separate database, no sync layer, no vendor lock-in.
@@ -104,16 +105,17 @@ Browse [humans/](./humans). Read a playbook. Click the booking link in the autho
 ### From your terminal
 
 ```bash
-npm i -g open-goat        # install once
-# or: npx open-goat <command>
+npm i -g opengoat-cli      # install once (binary: goat)
+# or: npx opengoat-cli <command>
 
-opengoat list                              # all humans
-opengoat list --tag reddit --available     # filter
-opengoat search "cold email deliverability"
-opengoat read <playbook-slug>
-opengoat author <handle>
-opengoat hire <handle>                     # opens booking link
-opengoat submit                            # contribution wizard
+goat reddit                                # list reddit operators (shorthand)
+goat seo                                   # list seo operators
+goat list --available                      # all humans accepting bookings
+goat search "cold email deliverability"
+goat read <playbook-slug>
+goat author <handle>
+goat hire <handle>                         # opens booking link
+goat submit                                # contribution wizard
 ```
 
 Every command supports `--json` for agents. See [cli/README.md](./cli/README.md).
@@ -154,7 +156,7 @@ Tools exposed: `search_humans`, `read_playbook`, `get_author`, `get_booking_url`
 Publish a profile + at least one real playbook.
 
 ```bash
-opengoat submit
+goat submit
 ```
 
 Submissions are vetted. Generic, AI-generated, or self-promotional content is rejected. The registry's value is the curation. See [CONTRIBUTING.md](./CONTRIBUTING.md).
@@ -163,7 +165,7 @@ Submissions are vetted. Generic, AI-generated, or self-promotional content is re
 
 **v0.1 — Registry online (current)**
 - ✅ Schema + 13 categories
-- ✅ CLI shipped (`open-goat`)
+- ✅ CLI shipped (`opengoat-cli`, binary `goat`)
 - ✅ MCP server shipped (`opengoat-mcp`)
 - ✅ Site shipped (Next.js, opengoat.com)
 - ✅ GitHub Actions for auto-rebuild + PR verify
@@ -202,6 +204,6 @@ Submissions are vetted. Generic, AI-generated, or self-promotional content is re
 
 - Site: [opengoat.com](https://opengoat.com)
 - Org: [github.com/OpenGoatHQ](https://github.com/OpenGoatHQ)
-- npm CLI: [`open-goat`](https://www.npmjs.com/package/open-goat) (binary: `opengoat`)
+- npm CLI: [`opengoat-cli`](https://www.npmjs.com/package/opengoat-cli) (binary: `goat`)
 - npm MCP: [`opengoat-mcp`](https://www.npmjs.com/package/opengoat-mcp)
 - API: [`opengoat.com/api/index.json`](https://opengoat.com/api/index.json)

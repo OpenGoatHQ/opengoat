@@ -36,7 +36,8 @@ export default function HowItWorks() {
    ┌─────┼─────────────────────┐
    ▼     ▼                     ▼
  site   CLI                  MCP server
-opengoat.com  open-goat   opengoat-mcp
+opengoat.com  opengoat-cli  opengoat-mcp
+              (binary: goat)
    │     │                     │
    ▼     ▼                     ▼
 humans  devs                AI agents`}
@@ -101,9 +102,10 @@ cost_hire_max_usd: 15000
 
           <div className="rounded-lg border border-border bg-panel p-5">
             <div className="text-xs uppercase tracking-wider text-dim mb-2">CLI</div>
-            <div className="text-ink font-semibold">open-goat</div>
+            <div className="text-ink font-semibold">opengoat-cli</div>
             <p className="mt-2 text-sm text-dim">
-              <code className="text-ink">npm i -g open-goat</code>. Then <code className="text-ink">opengoat search</code>, <code className="text-ink">read</code>, <code className="text-ink">hire</code> from your terminal. JSON output for agents.
+              <code className="text-ink">npm i -g opengoat-cli</code>. Binary: <code className="text-ink">goat</code>.
+              Then <code className="text-ink">goat reddit</code>, <code className="text-ink">goat search</code>, <code className="text-ink">goat hire</code> from your terminal. JSON output for agents.
             </p>
           </div>
 

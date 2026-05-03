@@ -41,7 +41,7 @@ cp -r humans/_template humans/<category>/<your-handle>
 
 # 3. Fill profile.md and at least one playbook.md
 # 4. Validate locally
-npx open-goat verify .
+npx opengoat-cli verify .
 
 # 5. Open a PR. Reviewed within 7 days.`}
       </pre>
