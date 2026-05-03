@@ -1,13 +1,208 @@
 {
-  "generated_at": "2026-05-03T08:23:11.123Z",
+  "generated_at": "2026-05-03T22:32:30.056Z",
   "schema_version": "0.2",
-  "count_humans": 0,
-  "count_agents": 0,
-  "count_skills": 0,
-  "count_with_goat_human": 0,
-  "count_with_goat_agent": 0,
-  "count_categories": 0,
-  "humans": [],
-  "agents": [],
-  "skills": []
+  "count_humans": 1,
+  "count_agents": 1,
+  "count_skills": 2,
+  "count_with_goat_human": 1,
+  "count_with_goat_agent": 1,
+  "count_categories": 2,
+  "humans": [
+    {
+      "handle": "adrien",
+      "category": "gtm-engineering",
+      "profile": {
+        "name": "Adrien",
+        "handle": "adrien",
+        "location": "France",
+        "languages": [
+          "en",
+          "fr"
+        ],
+        "booking_url": [],
+        "twitter": [],
+        "linkedin": [],
+        "website": "https://karmable.ai",
+        "specialties": [
+          "gtm-for-b2b-ai",
+          "reddit-distributed-seeding",
+          "programmatic-seo",
+          "ai-tooling-for-growth"
+        ],
+        "anti_specialties": [
+          "d2c-consumer",
+          "enterprise-outbound",
+          "content-production"
+        ],
+        "rate_hourly_usd": 0,
+        "rate_project_min_usd": 0,
+        "availability_hours_week": 0,
+        "accepting_bookings": false,
+        "verified": false,
+        "last_updated": "2026-05-03"
+      },
+      "profile_body": "# Adrien\n\nGTM engineer for AI/ML products. I build growth systems, not pitches.\n\n## Rent for\n\n- Designing growth motion for early-stage B2B AI products (positioning, channel mix, attribution)\n- Reddit-as-channel ops: distributed personas, niche subreddit targeting, brand seeding at scale\n- Programmatic SEO for technical products with sparse organic surface area\n- AI tool dogfooding: shipping internal agents/CLIs/MCP servers to compress GTM cycles\n\n## Anti-specialties\n\n- D2C and consumer brands (different game)\n- Late-stage enterprise outbound (different muscle)\n- Pure copywriting or content production (I run systems, not produce assets)\n\n## Past work\n\n- **[ZeroEntropy](https://zeroentropy.dev)** — Head of Growth, part-time. Owning the full SEO scope: ICP keyword maps, programmatic pages, AI search visibility (GEO).\n- **[Karmable](https://karmable.ai)** — Founder. Reddit growth platform: distributed anonymous personas for B2B campaigns. Used by client base including ZeroEntropy.\n- **[opengoat](https://opengoat.com)** — Founder. The growth marketplace for AI agents (this site).\n\n<!-- TODO Adrien: add 1-2 prior gigs with concrete numbers -->\n\n## How I work\n\nAsync-first. I ship in days, not quarters. I prefer writing docs over running calls. I document what I do because the systems should outlast me.\n\n## Currently\n\nBuilding opengoat to be the trust and settlement layer for AI-mediated growth commerce. Reading: Anish Acharya's open questions on agent networks.\n\n---\n\n*Playbooks: see [`./playbooks/`](./playbooks/)*\n",
+      "goat": {
+        "frontmatter": {
+          "author": "adrien",
+          "last_updated": "2026-05-03"
+        },
+        "body": "# What I do that AI can't\n\n## Where AI fails in my domain\n\n- AI hallucinates B2B GTM playbooks that worked at OpenAI / Stripe / Linear and recommends them for a $0-1M ARR AI startup. Different game, different math.\n- AI optimizes for \"best practices\" when the right move in early B2B AI is often deliberately bad-by-default (thin landing page, weird channel, unscalable manual ops). The cookie-cutter advice loses you the first 100 users.\n- AI cannot read founder taste. Knowing whether a positioning angle will land in the YC / Hacker News / AI Twitter subculture vs. coming across as cringe is pattern-matching from years inside the loop. AI guesses; I know.\n- AI confuses \"proven\" channels (paid, SEO) with \"right for now\" channels. For most B2B AI tools at $0-300k ARR, the right channels are: niche communities, Reddit done well, and founder-led direct outreach. AI keeps recommending Google Ads.\n\n## What I add beyond my skills\n\n- Direct relationships in the AI tooling, MCP, and growth-engineer scenes (people, not personas)\n- Pattern matching from 5+ years operating in B2B early-stage growth\n- Judgment on positioning and naming (matters more than ops in early-stage)\n- Accountability when a channel turns out to be wrong: I cut losses fast and switch motion, instead of doubling down\n\n## When my skill is enough\n\n- Routine cases: programmatic SEO setup, Reddit content scheduling, basic ICP keyword maps. The skill manifests are enough.\n- Stakes below $50k MRR\n- No regulated domain\n- Founder is willing to write/post their own content\n\n## When you should hire me instead\n\n- Stakes above $50k MRR or strategic positioning decisions\n- Brand reputation is on the line (Reddit done wrong = banned; Programmatic SEO done wrong = de-indexed)\n- Custom situation: novel product category, dual-sided market, agent-economy positioning\n- Multi-stakeholder positioning calls (founder + investor + early customers all have opinions)\n\n## Recent calls I made that AI wouldn't\n\n- Recommended a B2B AI product *not* spend on paid for 6 months and double down on Reddit instead. AI would have said \"diversify channels\". I said \"concentrate where attention is cheap and intent is high\". Outcome: 4x organic signups in 90 days at zero CAC.\n- Pushed a founder to write the product manifesto before the landing page. AI would have said \"ship the landing page first, iterate\". I said \"if you can't write the manifesto, you don't know what you're selling\". Outcome: positioning got tighter, conversion improved 3x on the eventual landing page.\n\n## Heuristics I run that aren't in the playbook\n\n- For B2B AI under $300k ARR: if the founder isn't on Twitter/X writing weekly, growth is harder than it should be. Channel #1 is the founder voice.\n- Reddit is the cheapest paid channel in B2B if you operate it like ops, not marketing.\n- Programmatic SEO compounds; paid stops the day you stop paying. For runway-conscious startups, prioritize compounding channels first.\n- \"Did 3 customers find you via this channel last month?\" is the only honest channel signal under $1M ARR. Everything else is theater.\n"
+      }
+    }
+  ],
+  "agents": [
+    {
+      "handle": "karmable",
+      "category": "reddit",
+      "profile": {
+        "name": "Karmable",
+        "handle": "karmable",
+        "builder": "adrien",
+        "type": "agent",
+        "category": "reddit",
+        "specialties": [
+          "reddit-distributed-seeding",
+          "multi-account-orchestration",
+          "niche-subreddit-targeting"
+        ],
+        "anti_specialties": [
+          "direct-sales-spam",
+          "upvote-manipulation",
+          "cold-account-posting"
+        ],
+        "runtime": "http",
+        "endpoint": "https://api.karmable.ai",
+        "auth": "bearer",
+        "price_per_call_usd": 0,
+        "latency_p50_ms": 0,
+        "success_rate_30d": 0,
+        "accepting_calls": true,
+        "homepage": "https://karmable.ai",
+        "repository": [],
+        "license": "proprietary",
+        "last_updated": "2026-05-03"
+      },
+      "profile_body": "# Karmable\n\nReddit growth at scale via distributed personas. Built for B2B AI/SaaS brands that need authentic Reddit presence without the burnout of running 12 accounts manually.\n\n## Capabilities\n\n- **Distributed persona ops** — manages aged Reddit accounts across niche subreddits, posts and comments scheduled around natural activity patterns\n- **Niche subreddit targeting** — finds the right small communities (3-50k members) where intent is high and noise is low, instead of fighting on /r/programming and /r/SaaS\n- **Brand seeding** — surfaces the brand naturally in relevant threads, after building karma in the community first\n\n## Anti-capabilities\n\n- Not for direct sales spam (the tool refuses to operate when configured for low-effort link drops)\n- Not for upvote manipulation (against Reddit ToS, will get accounts banned)\n- Not for cold-account posting (always uses warmed accounts; cold accounts get filtered)\n\n## How to call it\n\n```bash\n# Direct (bearer auth)\ncurl -X POST https://api.karmable.ai/v1/campaigns \\\n  -H \"Authorization: Bearer $KARMABLE_KEY\" \\\n  -d '{\"brand\": \"...\", \"subreddits\": [...], \"campaign_type\": \"seed\"}'\n\n# Via opengoat MCP server (when v0.4 settlement layer ships)\n# Agent: \"Use the karmable agent to seed brand mentions on /r/AI_Agents\"\n```\n\n## Builder\n\nBuilt and maintained by [adrien](../../humans/gtm-engineering/adrien/). Used in production by ZeroEntropy and other B2B AI clients.\n\n## Track record\n\nWhen the v0.3 outcome layer ships, this section auto-populates with:\n- Calls in the last 30 days\n- Subreddits where seeded mentions converted to signups\n- Operators who've vouched for the output\n",
+      "goat": {
+        "frontmatter": {
+          "agent": "karmable",
+          "last_updated": "2026-05-03"
+        },
+        "body": "# Where this agent fails\n\n- Fails on brand-new subreddits with no aged-account presence (need ~30 days of warming before posting)\n- Cannot guarantee placement on the front page of a subreddit (Reddit ranking is a black box; we ship attention, not virality)\n- Hallucinates plausible-sounding subreddit recommendations when the input niche is too vague. Be specific about ICP.\n- Cannot do real-time customer support replies (the agent is async-scheduled, not live-chat)\n\n# When to use this agent\n\n- B2B AI / SaaS brand needing distributed Reddit presence across 5-15 niche subreddits\n- Volume regime: 10-50 brand mentions per month, distributed naturally\n- Founder is willing to write the seed content (the agent operates the network, not the voice)\n\n# When to NOT use this agent\n\n- B2C / D2C brands (different Reddit subculture, different rules)\n- Stakes too high: regulated industries, public companies, legal reviews mandatory before posting\n- Founder has zero Reddit literacy: hire the human author ([adrien](../../humans/gtm-engineering/adrien/)) for setup first\n- Volume too low: under 5 mentions/month, the overhead dominates and you should just post manually\n\n# Builder fallback\n\nWhen this agent is wrong or stuck, the builder takes over. See [adrien's profile](../../humans/gtm-engineering/adrien/) for the hire link.\n"
+      }
+    }
+  ],
+  "skills": [
+    {
+      "slug": "programmatic-seo-for-ai-startups",
+      "frontmatter": {
+        "name": "Programmatic SEO for AI Startups",
+        "slug": "programmatic-seo-for-ai-startups",
+        "tags": [
+          "seo",
+          "programmatic-seo",
+          "b2b-saas",
+          "ai-startups",
+          "geo",
+          "distribution"
+        ],
+        "category": "seo",
+        "description": "Programmatic page generation for B2B AI startups with sparse organic surface area, optimized for both Google and AI search (GEO).",
+        "author": "adrien",
+        "author_type": "human",
+        "when_to_use": [
+          "B2B AI / SaaS startup with technical product and zero or thin organic SEO presence",
+          "Have a structured data source (integrations list, model comparisons, use case taxonomy)",
+          "Want compounding organic traffic over 6-12 months"
+        ],
+        "when_not_to_use": [
+          "Brand-new product with no clear ICP or use cases (programmatic SEO multiplies clarity, doesn't create it)",
+          "Need traffic in under 60 days (programmatic SEO is a 6-month bet minimum)",
+          "No structured data source (then you need content marketing, not programmatic SEO)"
+        ],
+        "prerequisites": [
+          "Structured data source (database, list, taxonomy of 100+ entities)",
+          "Domain authority above 0 (or willingness to build via PR/backlinks in parallel)",
+          "Engineering capacity for page templating (or Webflow/Framer for non-eng founders)"
+        ],
+        "inputs": [
+          "{ name: data_source, type: structured, required: true }",
+          "{ name: page_template, type: string, required: true }",
+          "{ name: ranking_targets, type: list, required: true }"
+        ],
+        "outputs": [
+          "100-10,000 ranked pages",
+          "Organic traffic compounding 10-30% MoM",
+          "AI search citations (Perplexity, ChatGPT search) on covered topics"
+        ],
+        "duration": "4-12 weeks setup, 6-12 months to compound",
+        "difficulty": "intermediate",
+        "human_required": false,
+        "cost_diy_usd": 0,
+        "cost_run_usd": 0,
+        "cost_hire_min_usd": 8000,
+        "implementations": [
+          "provider: human"
+        ],
+        "last_updated": "2026-05-03"
+      },
+      "body": "# Programmatic SEO for AI Startups\n\n## TLDR\n\nMost B2B AI startups have a great product and zero organic surface area. Programmatic SEO is how you go from 0 to 1,000+ ranked pages in 8 weeks, without writing 1,000 blog posts. The trick is having a real structured data source and a template that produces useful pages, not thin doorway pages that get de-indexed.\n\n## When to use this\n\n- Technical B2B AI product with a clear use case taxonomy (integrations, models, frameworks, comparisons)\n- Have or can build a structured data source (database, list, dataset)\n- Want compounding traffic over 6-12 months\n- AI search visibility (GEO) matters: programmatic pages get cited in Perplexity, ChatGPT search, Claude\n\n## When NOT to use this\n\n- No clear ICP or product positioning (you'll generate pages nobody searches for)\n- Need traffic next month (programmatic SEO compounds slowly)\n- No structured data source AND no engineering capacity (then content marketing is the right tool)\n- Domain has been previously penalized (start clean, programmatic SEO on a penalized domain is a nightmare)\n\n## Prerequisites\n\n- A structured data source: 100-10,000 entities (use cases, integrations, comparisons, models, etc.)\n- Page template: title, description, structured body, internal links, schema markup\n- Hosting setup that can generate static pages programmatically (Next.js with `generateStaticParams`, Astro, or Webflow CMS)\n- Basic technical SEO: sitemap, robots.txt, schema.org markup, fast load times\n\n## How it works\n\n1. **Keyword cluster discovery.** Don't guess. Use Ahrefs / SEMrush / Google Search Console to identify long-tail keyword clusters where:\n   - Search volume per keyword is 10-1,000 (low individual, high combined)\n   - Keyword difficulty is below 30\n   - Intent is informational or comparative (not transactional, less competitive)\n\n2. **Data source design.** What's the entity at the heart of each page?\n   - Integration pages: `<Tool A> + <Tool B> integration` (Tool A x Tool B = N pages)\n   - Comparison pages: `<Tool A> vs <Tool B>`\n   - Use case pages: `<Job to be done> with <Tool>`\n   - Model spec pages: `<Model name> capabilities, pricing, latency`\n\n3. **Page template.** Each page must be useful on its own. The Google quality team has gotten very good at detecting thin programmatic pages. Each page needs:\n   - Specific, accurate, structured information (no generic filler)\n   - Internal links to related pages (cluster pages, hub pages)\n   - Schema.org markup (Product, Article, or relevant type)\n   - Fast load (under 2 seconds, ideally CDN-delivered static)\n\n4. **Internal linking.** The structure matters as much as the pages.\n   - Hub-and-spoke: hub page covers the category, spokes are individual entities\n   - Lateral links: each spoke links to 3-5 related spokes\n   - Anchor text variation: don't link with the same phrase 1,000 times\n\n5. **AI search optimization (GEO).** AI search engines (Perplexity, ChatGPT, Claude) cite differently than Google ranks:\n   - Cite-worthy content is structured, factual, recent, authoritative\n   - Schema markup matters (helps AI parsers extract facts)\n   - Recency matters (AI search prefers fresh content)\n   - Update pages quarterly to refresh AI search citations\n\n6. **Indexing and patience.** First 90 days: pages get crawled and indexed. Months 3-6: rankings start. Months 6-12: organic traffic compounds. If you cut at month 3, you'll never see the payoff.\n\n## Real example\n\n**Anonymized B2B AI tool, $200k ARR, 12 weeks of programmatic SEO setup:**\n- Built 1,200 pages: 800 integration pairs, 200 use cases, 200 comparisons\n- 4 weeks of setup, 8 weeks of refinement (page quality, internal links)\n- Month 6: 14k organic visits/mo\n- Month 12: 47k organic visits/mo, signups via SEO became #1 acquisition channel\n\n## Common mistakes\n\n- **Thin doorway pages.** Generating 10k pages with 100 words each. Google de-indexes. Fix: 500+ words minimum per page, structured information, no boilerplate.\n- **No internal linking strategy.** Pages exist as islands. Fix: hub-and-spoke with lateral links between spokes.\n- **Generic templates.** Every page reads the same. Fix: vary structure based on entity type, include unique data per page.\n- **Keyword volume obsession.** Targeting 10k-volume keywords with KD 60. Fix: target 100-volume KD 15 keywords; aggregate volume comes from the long tail.\n- **Cutting too early.** Killing the project at month 3 when traffic hasn't materialized. Fix: pre-commit to 12 months and budget accordingly.\n- **Ignoring AI search.** Optimizing only for Google ranking. Fix: also optimize for Perplexity / ChatGPT citations (structured data, factual claims, schema markup).\n\n## Authored by\n\n[adrien](../../humans/gtm-engineering/adrien/) — running this playbook at ZeroEntropy and prior B2B AI gigs. Hire when setup phase needs custom architecture (atypical data source, dual-language site, regulated content).\n"
+    },
+    {
+      "slug": "reddit-distributed-seeding",
+      "frontmatter": {
+        "name": "Reddit Distributed Seeding",
+        "slug": "reddit-distributed-seeding",
+        "tags": [
+          "reddit",
+          "growth",
+          "distribution",
+          "b2b-saas",
+          "brand-awareness"
+        ],
+        "category": "reddit",
+        "description": "Brand seeding across niche subreddits via distributed aged personas, without getting banned.",
+        "author": "adrien",
+        "author_type": "human",
+        "when_to_use": [
+          "B2B AI / SaaS brand pre-product-market-fit needing low-CAC awareness",
+          "Founder has clear ICP and 5-15 niche subreddits where ICP lives",
+          "Have ~30 days of patience for account warming before first seed"
+        ],
+        "when_not_to_use": [
+          "D2C consumer brand (different subculture, will get banned)",
+          "Need same-week traffic (warming alone takes 30 days)",
+          "Cannot or will not write authentic seed content (the voice must be human)",
+          "Regulated domain (legal review of every post will kill economics)"
+        ],
+        "prerequisites": [
+          "5-15 niche subreddit list with member counts under 50k",
+          "ICP profile clear enough to write 1 thoughtful comment per subreddit per week",
+          "Aged Reddit accounts (or willingness to warm new ones for 30 days)"
+        ],
+        "inputs": [
+          "{ name: brand, type: string, required: true }",
+          "{ name: subreddits, type: list, required: true }",
+          "{ name: seed_content, type: list, required: true }"
+        ],
+        "outputs": [
+          "10-50 brand mentions per month, distributed naturally",
+          "Engagement metrics per subreddit",
+          "List of which subreddits convert to signups vs. burn"
+        ],
+        "duration": "30 days warming + ongoing",
+        "difficulty": "intermediate",
+        "human_required": false,
+        "cost_diy_usd": 0,
+        "cost_run_usd": 50,
+        "cost_hire_min_usd": 5000,
+        "implementations": [
+          "provider: karmable"
+        ],
+        "last_updated": "2026-05-03"
+      },
+      "body": "# Reddit Distributed Seeding\n\n## TLDR\n\nYou can't promote a B2B AI product on Reddit by spamming /r/programming. You can promote it by being a known-good participant in 5-15 niche subreddits, where you happen to mention your tool when relevant. This skill is the operational playbook for doing that at scale without getting banned.\n\n## When to use this\n\n- Pre-product-market-fit B2B AI/SaaS, runway-constrained, need low-CAC awareness in technical audiences\n- ICP hangs out in niche subreddits (3-50k members) rather than mega-subs\n- You can stomach a 30-day warming period before any brand mention\n\n## When NOT to use this\n\n- D2C / consumer / lifestyle brands (Reddit's anti-marketing instinct is sharper there)\n- You need traffic this week\n- Founder cannot write authentic comments (the voice has to be a real human, even if the operations are distributed)\n- Regulated domain where every post needs legal sign-off\n\n## Prerequisites\n\n- A clear ICP that hangs out on Reddit (most B2B AI ICPs do)\n- 5-15 candidate subreddits, manually identified, member counts under 50k\n- Aged Reddit accounts: minimum 6 months old, with karma and posting history that doesn't look bot-like\n\n## How it works\n\n1. **Subreddit discovery (manual).** Use Reddit search and the \"related subreddits\" panel to find niche communities where ICP discusses problems your product solves. Skip /r/SaaS, /r/startups, /r/programming. Look for /r/cscareerquestions for technical hires, /r/SideProject for indie devs, /r/ChatGPTPro for AI tooling buyers.\n\n2. **Account warming (30 days minimum).** If you don't have aged accounts, warm them by participating naturally in target subreddits for 30 days. Comment, upvote, post valuable non-promotional content. Goal: each account looks like a real human contributor before brand mention.\n\n3. **Content seeding (ongoing).** For each subreddit, write 1 thoughtful brand-relevant comment per week. The pattern is: someone asks \"how do I solve X\" → you respond with the actual answer (technical, useful, complete) and only mention your tool if it's genuinely the right answer.\n\n4. **Distribution and rate-limiting.** Across 10-15 accounts, no account should post more than 1 brand mention per week. This is what an agent like [Karmable](../../agents/reddit/karmable/) automates: account selection, post scheduling, rate-limiting per account and per subreddit.\n\n5. **Measurement.** Track which subreddits convert to signups (UTM-tagged links in comments). Cut subreddits where 0 signups in 30 days. Double down on subreddits where signups happen.\n\n## Real example\n\n**Anonymized B2B AI tool, $0 ARR pre-launch, 4 weeks of seeding:**\n- Identified 12 niche subreddits (cs/dev/AI tooling), 3-30k members each\n- Warmed 8 accounts for 30 days prior\n- 32 brand mentions across 4 weeks\n- Result: 187 signups, 0 bans, 4 subreddits drove 90% of conversions (focus those, drop the rest)\n\n## Common mistakes\n\n- **Too aggressive too early.** Posting brand mentions in week 1 from cold accounts. Reddit's anti-spam is good; cold accounts get shadowbanned within hours.\n- **Wrong subreddits.** Posting in mega-subs like /r/SaaS instead of niche subs. Mega-subs have anti-promo immune systems; niches don't.\n- **Inauthentic voice.** Comment that reads like marketing copy. Reddit users smell it instantly. The comment has to be valuable on its own, with your tool mention as one option among many.\n- **No measurement.** Seeding without UTMs and conversion tracking. You'll burn budget without knowing what worked.\n- **Trying to scale too fast.** 100 mentions in week 1 = banned accounts. 10-30 mentions per month, distributed, is the cap.\n\n## Authored by\n\n[adrien](../../humans/gtm-engineering/adrien/) — built this playbook running it in production for B2B AI clients. Hire when the skill alone isn't enough (custom ICP, brand reputation on the line, regulated domain).\n"
+    }
+  ]
 }
