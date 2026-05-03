@@ -1,0 +1,46 @@
+name: Report an operator
+description: Flag bad behavior (misrepresentation, ghosting, ToS violations)
+title: "[report] <handle>"
+labels: ["report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reports are reviewed within 24h. Validated reports lead to delisting.
+        Please do not file a report for personal taste differences — only for
+        misrepresentation, fraud, ghosting, or violations of the project ethics.
+
+  - type: input
+    id: handle
+    attributes:
+      label: Handle being reported
+      placeholder: e.g. <handle>
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type of issue
+      options:
+        - Misrepresentation of past work
+        - Ghosted client or no-showed
+        - AI-generated content claimed as authored
+        - Hidden affiliation / undisclosed conflict
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What happened, with dates and evidence (links, screenshots, references).
+    validations:
+      required: true
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact (optional)
+      description: How we can reach you privately if more info is needed.

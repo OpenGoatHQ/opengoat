@@ -1,0 +1,34 @@
+name: Propose a new category
+description: Suggest a category that doesn't fit any of the 13 existing ones
+title: "[category] <name>"
+labels: ["category"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Category name
+      placeholder: e.g. asoa, podcast, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: What does this cover? What does it NOT cover?
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-not-existing
+    attributes:
+      label: Why doesn't it fit an existing category?
+      description: Be specific. We try to keep the taxonomy tight.
+    validations:
+      required: true
+
+  - type: textarea
+    id: operators
+    attributes:
+      label: Example operators
+      description: 3+ named operators who would fit this category.

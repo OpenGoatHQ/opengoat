@@ -13,13 +13,22 @@ export default function Home() {
     <div>
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-28">
+          <div className="mb-6 inline-block px-3 py-1 rounded-full border border-border text-xs uppercase tracking-wider text-dim">
+            Curated · invite-priority · ~50% rejected
+          </div>
           <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-ink">
-            The human-skill registry<br />for the agent era.
+            The moat in the agent era<br />isn&apos;t agents.
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-dim">
-            Open directory of growth, GTM, and distribution operators. Each human publishes their real
-            playbooks as skill manifests. Searchable by terminal. Callable by AI agents. Bookable by anyone.
-            <span className="text-ink"> No take rate.</span>
+            It&apos;s the humans who operate them. Skills get commoditized. Tools are APIs. What stays
+            defensible is the curated network of humans whose judgment, identity, and accumulated reputation
+            can&apos;t be forked.
+            <span className="text-ink"> opengoat is the registry of those humans.</span>
+          </p>
+          <p className="mt-4 max-w-2xl text-dim">
+            Each operator publishes their real playbooks as skill manifests. Searchable by terminal.
+            Callable by AI agents. Bookable by anyone.{" "}
+            <span className="text-ink">No take rate.</span>
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link

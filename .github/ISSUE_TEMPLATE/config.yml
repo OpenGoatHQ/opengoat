@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the contribution guide
+    url: https://github.com/OpenGoatHQ/opengoat/blob/main/CONTRIBUTING.md
+    about: Bar for inclusion, schema requirements, common rejection reasons.
+  - name: Site
+    url: https://opengoat.com
+    about: Browse humans and playbooks.

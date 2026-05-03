@@ -1,0 +1,99 @@
+name: Nominate a human
+description: Nominate yourself or someone for inclusion on opengoat
+title: "[nomination] <handle> — <category>"
+labels: ["nomination"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submissions are vetted. ~50% rejected. Read [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) before opening.
+
+  - type: input
+    id: handle
+    attributes:
+      label: Handle
+      description: Lowercase, no spaces. Becomes the folder name.
+      placeholder: e.g. adrian
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Full name
+      placeholder: First Last
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Primary category
+      options:
+        - seo
+        - content
+        - video
+        - email
+        - paid
+        - community
+        - reddit
+        - plg
+        - outbound
+        - launches
+        - pr
+        - platform
+        - gtm-engineering
+    validations:
+      required: true
+
+  - type: textarea
+    id: past-work
+    attributes:
+      label: Verifiable past work
+      description: 2-3 specific projects with links or named clients (anonymized OK if NDA).
+      placeholder: |
+        - Linear, helped 0→100k MRR via dev-tool launches. <link>
+        - Notion, ran the r/productivity seed campaign Q1 2025. <case study>
+        - Personal blog: <link>, 50k MRR
+    validations:
+      required: true
+
+  - type: input
+    id: booking
+    attributes:
+      label: Booking URL (Cal.com or similar)
+      placeholder: https://cal.com/your-handle
+    validations:
+      required: true
+
+  - type: textarea
+    id: anti
+    attributes:
+      label: Anti-specialties
+      description: What you do NOT do. Builds trust.
+      placeholder: |
+        - Paid ads
+        - Enterprise sales motions
+        - Engagements under $X
+    validations:
+      required: true
+
+  - type: textarea
+    id: refs
+    attributes:
+      label: References
+      description: 2 people we can reach (operators already in opengoat OR named industry peers with public reachability).
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirm
+      options:
+        - label: I have shipped real work in this category
+          required: true
+        - label: I will publish at least one real playbook (not generic advice)
+          required: true
+        - label: I'm OK with public rates and anti-specialties
+          required: true
+        - label: No AI-generated content in my submission
+          required: true

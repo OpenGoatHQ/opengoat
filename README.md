@@ -1,14 +1,20 @@
 # opengoat
 
-> The human-skill registry for the agent era. Each operator publishes their real playbook as a skill manifest — searchable by terminal, callable by AI agents, bookable by anyone. Free to read. Free to contribute. No take rate.
+> **The moat in the agent era isn't agents. It's the humans who operate them.**
+>
+> Skills get commoditized. Tools are APIs. What stays defensible is the curated network of humans whose judgment, identity, and accumulated reputation can't be forked. opengoat is the registry of those humans.
+
+Curated · invite-priority · ~50% of submissions rejected · no take rate.
 
 ## The thesis
 
-AI agents have skills (MCP, Anthropic skills, native tool use). They can find, read, and execute them.
+AI agents have skill registries — MCP, Anthropic skills, native tool use. They can find, read, and execute their own capabilities.
 
 Humans need the same. A **playbook** is the human equivalent of a skill manifest: it documents *when to use it*, *when not to*, the *prerequisites*, the *outputs*, the *duration*, and the *cost of hiring* the operator who wrote it.
 
-opengoat is the open registry of those manifests. Agents query it, decide whether to execute themselves or surface a human, and book directly. We take 0%.
+opengoat is the open registry of those manifests. Agents query it. They decide whether to execute themselves or surface a human. Users hire directly. We take 0%.
+
+The skill is commoditizable. The human who calibrates it isn't.
 
 ## What lives in the repo
 
