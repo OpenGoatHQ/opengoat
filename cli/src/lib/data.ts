@@ -9,21 +9,34 @@ import { dirname, join } from "node:path";
 
 export type Index = {
   generated_at: string;
+  schema_version?: string;
   count_humans: number;
-  count_playbooks: number;
+  count_agents: number;
+  count_skills: number;
+  count_categories: number;
   humans: Human[];
+  agents: Agent[];
+  skills: Skill[];
 };
 
 export type Human = {
   handle: string;
+  category: string;
   profile: Record<string, any>;
   profile_body: string;
-  playbooks: Playbook[];
+  goat: { frontmatter: Record<string, any>; body: string } | null;
 };
 
-export type Playbook = {
+export type Agent = {
+  handle: string;
+  category: string;
+  profile: Record<string, any>;
+  profile_body: string;
+  goat: { frontmatter: Record<string, any>; body: string } | null;
+};
+
+export type Skill = {
   slug: string;
-  author: string;
   frontmatter: Record<string, any>;
   body: string;
 };

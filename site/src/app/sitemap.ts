@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIES } from "@/lib/categories";
-import { allHandles, allSlugs } from "@/lib/data";
+import { allAgentHandles, allHumanHandles, allSkillSlugs } from "@/lib/data";
 
 const BASE = "https://opengoat.com";
 
@@ -28,19 +28,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const humanRoutes = allHandles().map((handle) => ({
-    url: `${BASE}/${handle}`,
+  const humanRoutes = allHumanHandles().map((handle) => ({
+    url: `${BASE}/humans/${handle}`,
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
-  const playbookRoutes = allSlugs().map((slug) => ({
-    url: `${BASE}/playbooks/${slug}`,
+  const agentRoutes = allAgentHandles().map((handle) => ({
+    url: `${BASE}/agents/${handle}`,
     lastModified: now,
-    changeFrequency: "monthly" as const,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  const skillRoutes = allSkillSlugs().map((slug) => ({
+    url: `${BASE}/skills/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
     priority: 0.9,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...humanRoutes, ...playbookRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...humanRoutes, ...agentRoutes, ...skillRoutes];
 }

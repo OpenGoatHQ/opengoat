@@ -1,9 +1,12 @@
-import { loadIndex, type Human } from "../lib/data.js";
+import { loadIndex } from "../lib/data.js";
+
+type EntityType = "human" | "agent" | "skill";
 
 type Opts = {
   tag?: string;
   available?: boolean;
   maxRate?: string;
+  type?: EntityType;
   json?: boolean;
   noCache?: boolean;
   registry?: string;
@@ -11,43 +14,63 @@ type Opts = {
 
 export async function list(opts: Opts) {
   const idx = await loadIndex({ noCache: opts.noCache, registry: opts.registry });
-  let humans = idx.humans;
 
-  if (opts.tag) {
-    humans = humans.filter((h) => specialties(h).includes(opts.tag!));
+  const rows: Array<{ type: EntityType; row: any }> = [];
+
+  if (!opts.type || opts.type === "human") {
+    let humans = idx.humans;
+    if (opts.tag) humans = humans.filter((h) => arr(h.profile.specialties).includes(opts.tag!) || h.category === opts.tag);
+    if (opts.available) humans = humans.filter((h) => h.profile.accepting_bookings === true);
+    if (opts.maxRate) {
+      const max = Number(opts.maxRate);
+      humans = humans.filter((h) => Number.isFinite(Number(h.profile.rate_hourly_usd)) && Number(h.profile.rate_hourly_usd) <= max);
+    }
+    for (const h of humans) rows.push({ type: "human", row: h });
   }
-  if (opts.available) {
-    humans = humans.filter((h) => h.profile.accepting_bookings === true);
+
+  if (!opts.type || opts.type === "agent") {
+    let agents = idx.agents;
+    if (opts.tag) agents = agents.filter((a) => arr(a.profile.specialties).includes(opts.tag!) || a.category === opts.tag);
+    if (opts.available) agents = agents.filter((a) => a.profile.accepting_calls === true);
+    for (const a of agents) rows.push({ type: "agent", row: a });
   }
-  if (opts.maxRate) {
-    const max = Number(opts.maxRate);
-    humans = humans.filter((h) => {
-      const r = Number(h.profile.rate_hourly_usd);
-      return Number.isFinite(r) && r <= max;
-    });
+
+  if (!opts.type || opts.type === "skill") {
+    let skills = idx.skills;
+    if (opts.tag) skills = skills.filter((s) => arr(s.frontmatter.tags).includes(opts.tag!) || s.frontmatter.category === opts.tag);
+    for (const s of skills) rows.push({ type: "skill", row: s });
   }
 
   if (opts.json) {
-    process.stdout.write(JSON.stringify(humans, null, 2) + "\n");
+    process.stdout.write(JSON.stringify(rows, null, 2) + "\n");
     return;
   }
 
-  if (humans.length === 0) {
-    console.log("No humans match.");
+  if (rows.length === 0) {
+    console.log("No matches.");
     return;
   }
-  for (const h of humans) {
-    const name = h.profile.name || h.handle;
-    const rate = h.profile.rate_hourly_usd ? `$${h.profile.rate_hourly_usd}/h` : "rate n/a";
-    const status = h.profile.accepting_bookings ? "open" : "closed";
-    const tags = specialties(h).slice(0, 3).join(", ");
-    console.log(`${pad(h.handle, 18)} ${pad(name, 24)} ${pad(rate, 10)} ${pad(status, 7)} ${tags}`);
+
+  for (const { type, row } of rows) {
+    if (type === "human") {
+      const name = row.profile.name || row.handle;
+      const rate = row.profile.rate_hourly_usd ? `$${row.profile.rate_hourly_usd}/h` : "rate n/a";
+      const status = row.profile.accepting_bookings ? "open" : "closed";
+      console.log(`👤 ${pad(row.handle, 18)} ${pad(name, 24)} ${pad(rate, 10)} ${pad(status, 7)} ${row.category}`);
+    } else if (type === "agent") {
+      const name = row.profile.name || row.handle;
+      const price = row.profile.price_per_call_usd !== undefined ? `$${row.profile.price_per_call_usd}/call` : "price n/a";
+      const status = row.profile.accepting_calls ? "open" : "closed";
+      console.log(`🤖 ${pad(row.handle, 18)} ${pad(name, 24)} ${pad(price, 12)} ${pad(status, 7)} ${row.category}`);
+    } else {
+      const title = row.frontmatter.name || row.slug;
+      console.log(`📘 ${pad(row.slug, 24)} ${pad(title, 32)} by @${row.frontmatter.author}`);
+    }
   }
 }
 
-function specialties(h: Human): string[] {
-  const s = h.profile.specialties;
-  return Array.isArray(s) ? s : [];
+function arr(v: any): string[] {
+  return Array.isArray(v) ? v : [];
 }
 
 function pad(s: string, n: number): string {

@@ -1,98 +1,89 @@
 # Contributing
 
-Two ways to contribute: as a human (add yourself + playbooks), or as a reader (open issues, suggest fixes).
+opengoat indexes three entity types. You can publish any combination:
 
-## Adding yourself as a human
+```
+humans/<category>/<handle>/
+├── profile.md          # who you are, rates, hire link, anti-specialties
+├── goat.md             # where AI fails in your domain, what you add beyond skills
+└── (skills you authored live in skills/, referenced by author handle)
 
-### Easy way (CLI)
+agents/<category>/<handle>/
+├── profile.md          # capabilities, builder, runtime endpoint, price per call
+├── goat.md             # failure modes documented honestly
+└── (skills the agent implements live in skills/, referenced by author handle)
+
+skills/<slug>/
+└── skill.md            # skill manifest + provider implementations (no methodology hosting)
+```
+
+## Three ways to contribute
+
+### Add yourself as a human
+
+Operators with verifiable past work in growth, GTM, or distribution. Bookable directly.
+
+### Add an agent you built
+
+First-class economic entity. Has a builder (you, presumably), an endpoint, a price per call, capabilities, and (eventually) a verified reputation.
+
+### Author a skill
+
+A skill manifest with provider pointers. opengoat does NOT host execution. Skills point to MOATT, orthogonal, MCP servers, or your own HTTP endpoint.
+
+## Submission
+
 ```bash
-goat submit                # if installed globally (npm i -g opengoat-cli)
-npx opengoat-cli submit    # one-shot via npx (no install)
-```
-Interactive. Creates the markdown, drafts the PR, opens it in your browser.
-
-### Manual way
-1. Fork the repo
-2. Copy `humans/_template/` to `humans/<category>/<your-handle>/` (pick the category folder that fits)
-3. Fill `profile.md`
-4. Add at least 1 real playbook in `playbooks/` (follow `_template.md`)
-5. Run `goat verify .` locally
-6. Open a PR
-
-## What you publish
-
-Three files (one required, two strongly recommended):
-
-```
-humans/<category>/<your-handle>/
-├── profile.md          # required: who, rates, anti-specialties, hire link
-├── goat.md             # recommended: what AI gets wrong, what you add beyond skills
-└── playbooks/
-    └── <slug>.md       # required (≥1): skill manifests + optional runnable block
+goat submit
 ```
 
-`goat.md` is the file that explains why you exist beyond your skills. Agents
-read it to decide when to surface you for hire vs. run your skill standalone.
-Without it, your moat isn't clear and your profile is weaker — operators
-without a `goat.md` get less surface area in the registry over time.
+Or manually:
 
-`playbook.md` can include an optional `runnable:` block making the skill
-executable via `orthogonal`, `http` (your own backend), or `mcp` (your MCP
-server). Operators with runnable skills get an additional execution-fee
-income stream on top of direct hires.
+1. Fork https://github.com/OpenGoatHQ/opengoat
+2. Copy the relevant `_template/` directory:
+   - `cp -r humans/_template humans/<category>/<your-handle>` (humans)
+   - `cp -r agents/_template agents/<category>/<your-handle>` (agents)
+   - `cp -r skills/_template skills/<your-slug>` (skills)
+3. Fill the markdown files
+4. Run `goat verify .` locally
+5. Open a PR
+
+Reviewed within 7 days. Expect questions about claims.
 
 ## Bar for inclusion
 
-### Profile
-- Honest rates, anti-specialties, and availability
-- Verifiable past work (linked artifacts or named clients)
-- No "growth strategist" vagueness — be specific about what you do
+### Humans
+- Verifiable past work (linked artifacts or named clients, NDA-friendly anonymization OK)
+- Honest rates and anti-specialties
+- A `goat.md` documenting where AI fails in your domain
+- No "growth strategist" vagueness — be specific
 
-### Playbook (skill manifest)
-Each playbook must be readable as a skill manifest. Required frontmatter:
+### Agents
+- Working endpoint (we'll test it)
+- Honest capability + anti-capability lists
+- Builder identified (link to your human profile if you have one)
+- A `goat.md` documenting failure modes
 
-```yaml
-name: <Playbook Name>
-slug: <kebab-slug>
-author: <your-handle>
-tags: [...]
-category: <one of the 13 categories>
-description: <one-line of what this playbook produces>
-
-when_to_use: [...]              # scenarios where this is the right move
-when_not_to_use: [...]          # anti-conditions, DIY thresholds
-duration: <e.g. 4-6 weeks>
-human_required: <true|false>    # is judgement/relationships essential?
-cost_hire_min_usd: <number>
-```
-
-This is non-optional. Without these fields, agents can't reason about your playbook.
-
-The body (markdown) must include:
-- Concrete step-by-step methodology, not generic advice
-- A real (anonymized OK) example
-- Common mistakes
-- Tools mentioned
+### Skills
+- Required frontmatter: `name`, `slug`, `category`, `description`, `author`, `author_type`, `when_to_use`, `when_not_to_use`
+- At least one provider implementation in the `implementations` array (MOATT / orthogonal / mcp / http) — opengoat does not host execution
+- Methodology body in plain markdown (the spec, not a polished tool)
 
 ## Common rejection reasons
 
-- Generic advice ("write good copy", "be authentic")
 - AI-generated content (we sniff this)
-- Missing or fake `when_not_to_use` (every real playbook has anti-conditions)
-- No anti-specialties on profile
-- No verifiable past work
-- LinkedIn-style fluff
+- Generic advice ("write good copy")
+- Missing or fake `when_not_to_use` (every real skill has anti-conditions)
+- Agent without a working endpoint
+- Skill without a working provider
+- Profile without verifiable past work
 
-We reject ~50% of submissions. The directory's value is curation.
-
-## Adding another playbook (existing humans)
-
-Drop a new `.md` in `humans/<category>/<your-handle>/playbooks/`. Same schema bar.
-
-## Reviewing PRs
-
-PRs are reviewed within 7 days. Expect questions about claims. We verify references.
+We reject ~50% of submissions. The directory's value is what we say no to.
 
 ## Reporting bad actors
 
 Open an issue with the `report` label. Validated reports lead to delisting.
+
+## Editing or removing your entries
+
+Open a PR removing or editing your folder. Reviewed within 7 days. Once merged, you're delisted from every surface within minutes.

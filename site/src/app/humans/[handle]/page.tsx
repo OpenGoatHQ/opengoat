@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { allHandles, getHuman } from "@/lib/data";
+import { allHumanHandles, getHuman, skillsByAuthor } from "@/lib/data";
 import { Markdown } from "@/components/Markdown";
 import { antiSpecialties, formatRate, specialties, statusLabel, ensureUrl } from "@/lib/format";
-import { PlaybookCard } from "@/components/PlaybookCard";
+import { SkillCard } from "@/components/SkillCard";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
-  return allHandles().map((handle) => ({ handle }));
+  return allHumanHandles().map((handle) => ({ handle }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ handle: string }> }): Promise<Metadata> {
@@ -30,11 +30,14 @@ export default async function HumanPage({ params }: { params: Promise<{ handle: 
   const name = (human.profile.name as string) || human.handle;
   const booking = ensureUrl(human.profile.booking_url);
   const open = !!human.profile.accepting_bookings;
+  const skills = skillsByAuthor(human.handle);
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
       <div className="text-sm text-dim mb-3">
         <Link href={`/c/${human.category}`} className="hover:text-ink">{human.category}</Link>
+        <span className="mx-2">·</span>
+        <span className="text-accent">human</span>
       </div>
       <div className="flex items-start justify-between gap-6 flex-wrap">
         <div>
@@ -61,9 +64,7 @@ export default async function HumanPage({ params }: { params: Promise<{ handle: 
           <section className="rounded-lg border border-border bg-panel p-5">
             <div className="text-xs uppercase tracking-wider text-dim mb-3">Rent for</div>
             <ul className="space-y-1.5 text-ink text-sm">
-              {specialties(human.profile).map((s) => (
-                <li key={s}>· {s}</li>
-              ))}
+              {specialties(human.profile).map((s) => (<li key={s}>· {s}</li>))}
             </ul>
           </section>
         )}
@@ -71,9 +72,7 @@ export default async function HumanPage({ params }: { params: Promise<{ handle: 
           <section className="rounded-lg border border-border bg-panel p-5">
             <div className="text-xs uppercase tracking-wider text-dim mb-3">Anti-specialties</div>
             <ul className="space-y-1.5 text-ink text-sm">
-              {antiSpecialties(human.profile).map((s) => (
-                <li key={s}>· {s}</li>
-              ))}
+              {antiSpecialties(human.profile).map((s) => (<li key={s}>· {s}</li>))}
             </ul>
           </section>
         )}
@@ -85,20 +84,16 @@ export default async function HumanPage({ params }: { params: Promise<{ handle: 
 
       {human.goat && (
         <section className="mt-12 rounded-lg border border-accent/40 bg-panel p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-xs uppercase tracking-wider text-accent">why hire {name} beyond their skills</span>
-          </div>
+          <div className="text-xs uppercase tracking-wider text-accent mb-4">Why hire {name} beyond their skills</div>
           <Markdown>{human.goat.body}</Markdown>
         </section>
       )}
 
-      {human.playbooks.length > 0 && (
+      {skills.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold text-ink mb-4">Playbooks</h2>
+          <h2 className="text-2xl font-semibold text-ink mb-4">Skills authored</h2>
           <div className="grid gap-3 sm:grid-cols-2">
-            {human.playbooks.map((pb) => (
-              <PlaybookCard key={pb.slug} playbook={pb} author={human} />
-            ))}
+            {skills.map((s) => (<SkillCard key={s.slug} skill={s} />))}
           </div>
         </section>
       )}

@@ -2,9 +2,10 @@
 /**
  * opengoat CLI — entrypoint. Binary: `goat`.
  *
- * Shorthand: `goat <category>` lists operators in that category.
- * Equivalent to `goat list --tag <category>`. We rewrite argv before commander
- * parses so the shorthand is purely sugar — full subcommands still work.
+ * Three entity types: humans, agents, skills.
+ *
+ * Shorthand: `goat <category>` lists everything in that category.
+ * Equivalent to `goat list --tag <category>`.
  */
 
 import { Command } from "commander";
@@ -36,7 +37,6 @@ const CATEGORIES = [
 if (
   process.argv.length >= 3 &&
   CATEGORIES.includes(process.argv[2]) &&
-  // Don't rewrite if the user passed flags after — those are list options
   process.argv.slice(3).every((a) => a.startsWith("-"))
 ) {
   const cat = process.argv[2];
@@ -47,36 +47,62 @@ if (
 const program = new Command();
 program
   .name("goat")
-  .description("opengoat CLI — hire goats of growth, GTM, and distribution.")
-  .version("0.0.1")
+  .description("opengoat CLI — humans, agents, and skills for the agent era.")
+  .version("0.0.2")
   .option("--no-cache", "Bypass local cache (default: 1h TTL)")
   .option("--registry <url>", "Custom registry URL");
 
 program
   .command("list")
-  .description("List humans, optionally filtered. Shorthand: `goat <category>`.")
+  .description("List entities. Defaults to all types. Shorthand: `goat <category>`.")
+  .option("--type <type>", "Filter by type: human | agent | skill")
   .option("--tag <tag>", "Filter by tag / category")
-  .option("--available", "Only humans accepting bookings")
-  .option("--max-rate <usd>", "Max hourly rate USD")
+  .option("--available", "Only entities accepting work")
+  .option("--max-rate <usd>", "Max hourly rate USD (humans)")
   .option("--json", "Machine-readable output")
   .action(async (opts) => list({ ...opts, ...program.opts() }));
 
 program
+  .command("humans")
+  .description("List humans only.")
+  .option("--tag <tag>", "Filter by tag / category")
+  .option("--available", "Only accepting bookings")
+  .option("--max-rate <usd>", "Max hourly rate USD")
+  .option("--json", "Machine-readable output")
+  .action(async (opts) => list({ ...opts, type: "human", ...program.opts() }));
+
+program
+  .command("agents")
+  .description("List agents only.")
+  .option("--tag <tag>", "Filter by tag / category")
+  .option("--available", "Only accepting calls")
+  .option("--json", "Machine-readable output")
+  .action(async (opts) => list({ ...opts, type: "agent", ...program.opts() }));
+
+program
+  .command("skills")
+  .description("List skills only.")
+  .option("--tag <tag>", "Filter by tag / category")
+  .option("--json", "Machine-readable output")
+  .action(async (opts) => list({ ...opts, type: "skill", ...program.opts() }));
+
+program
   .command("search <query>")
-  .description("Full-text search across playbooks and profiles.")
+  .description("Full-text search across humans, agents, skills.")
   .option("--json", "Machine-readable output")
   .action(async (query, opts) => search(query, { ...opts, ...program.opts() }));
 
 program
   .command("read <slug>")
-  .description("Print a playbook to stdout.")
+  .description("Print a skill to stdout.")
   .option("--raw", "Raw markdown source with frontmatter")
   .option("--json", "Machine-readable output")
   .action(async (slug, opts) => read(slug, { ...opts, ...program.opts() }));
 
 program
   .command("author <handle>")
-  .description("Print a human's profile and playbooks.")
+  .description("Print a human or agent profile and skills they authored.")
+  .option("--type <type>", "human | agent (disambiguate when both exist)")
   .option("--json", "Machine-readable output")
   .action(async (handle, opts) => author(handle, { ...opts, ...program.opts() }));
 
@@ -89,13 +115,13 @@ program
 
 program
   .command("submit [type]")
-  .description("Instructions to submit a profile or playbook (interactive wizard in v0.2).")
+  .description("Instructions to submit a human, agent, or skill.")
   .option("--json", "Machine-readable output")
   .action(async (type, opts) => submit(type, opts));
 
 program
   .command("verify [path]")
-  .description("Validate a profile or playbook locally.")
+  .description("Validate entities in a directory or a single file.")
   .action(async (target = ".") => verify(target));
 
 program.parseAsync().catch((err) => {

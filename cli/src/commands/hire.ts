@@ -6,12 +6,12 @@ type Opts = { print?: boolean; json?: boolean; noCache?: boolean; registry?: str
 
 export async function hire(handle: string, opts: Opts) {
   const idx = await loadIndex({ noCache: opts.noCache, registry: opts.registry });
-  const h = idx.humans.find((x) => x.handle === handle);
-  if (!h) {
-    console.error(`No human with handle '${handle}'.`);
+  const human = idx.humans.find((x) => x.handle === handle);
+  if (!human) {
+    console.error(`No human with handle '${handle}'. (Agents have endpoints, not bookings — use 'goat author ${handle}' to see invocation details.)`);
     process.exit(1);
   }
-  const url = h.profile.booking_url as string | undefined;
+  const url = human.profile.booking_url as string | undefined;
   if (!url) {
     console.error(`${handle} has no booking_url set.`);
     process.exit(1);

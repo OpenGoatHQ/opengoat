@@ -1,8 +1,13 @@
 #!/usr/bin/env bun
 /**
- * Walks humans/<category>/<handle>/profile.md and humans/<category>/<handle>/playbooks/*.md,
- * writes a flat index.json the CLI consumes. Skips _template, files starting with '.',
- * and category READMEs.
+ * Walks the three entity directories (humans, agents, skills) and writes
+ * a flat index.json that every consumer (site, CLI, MCP server) reads.
+ *
+ * humans/<category>/<handle>/profile.md + goat.md
+ * agents/<category>/<handle>/profile.md + goat.md
+ * skills/<slug>/skill.md
+ *
+ * Skips _template, files starting with '.', and category READMEs.
  */
 
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
@@ -10,21 +15,20 @@ import { join } from "node:path";
 
 const ROOT = join(import.meta.dir, "..");
 const HUMANS_DIR = join(ROOT, "humans");
+const AGENTS_DIR = join(ROOT, "agents");
+const SKILLS_DIR = join(ROOT, "skills");
 const OUT = join(ROOT, "data", "index.json");
 
-type Human = {
+type Profile = {
   handle: string;
   category: string;
   profile: Record<string, any>;
   profile_body: string;
   goat: { frontmatter: Record<string, any>; body: string } | null;
-  playbooks: Playbook[];
 };
 
-type Playbook = {
+type Skill = {
   slug: string;
-  author: string;
-  category: string;
   frontmatter: Record<string, any>;
   body: string;
 };
@@ -36,15 +40,26 @@ function parseFrontmatter(src: string): { fm: Record<string, any>; body: string 
   const raw = src.slice(3, end).trim();
   const body = src.slice(end + 4).replace(/^\n+/, "");
   const fm: Record<string, any> = {};
-  let currentList: string[] | null = null;
+  let currentList: any[] | null = null;
+  let currentKey: string | null = null;
   for (const line of raw.split("\n")) {
     if (line.startsWith("  - ") && currentList) {
-      currentList.push(line.slice(4).trim());
+      const v = line.slice(4).trim();
+      if (v.startsWith("{") && v.endsWith("}")) {
+        try {
+          currentList.push(JSON.parse(v.replace(/(\w+):/g, '"$1":').replace(/'/g, '"')));
+        } catch {
+          currentList.push(v);
+        }
+      } else {
+        currentList.push(v);
+      }
       continue;
     }
     const m = line.match(/^([a-zA-Z_][a-zA-Z0-9_]*):\s*(.*)$/);
     if (!m) continue;
     const [, key, val] = m;
+    currentKey = key;
     if (val === "") {
       currentList = [];
       fm[key] = currentList;
@@ -69,11 +84,12 @@ function parseFrontmatter(src: string): { fm: Record<string, any>; body: string 
   return { fm, body };
 }
 
-function loadHumans(): Human[] {
-  const result: Human[] = [];
-  for (const cat of readdirSync(HUMANS_DIR)) {
+function loadEntityWithGoat(dir: string): Profile[] {
+  if (!existsSync(dir)) return [];
+  const result: Profile[] = [];
+  for (const cat of readdirSync(dir)) {
     if (cat.startsWith("_") || cat.startsWith(".")) continue;
-    const catDir = join(HUMANS_DIR, cat);
+    const catDir = join(dir, cat);
     if (!statSync(catDir).isDirectory()) continue;
     for (const handle of readdirSync(catDir)) {
       if (handle === "README.md" || handle.startsWith(".")) continue;
@@ -90,38 +106,46 @@ function loadHumans(): Human[] {
         goat = { frontmatter: parsed.fm, body: parsed.body };
       }
 
-      const playbooks: Playbook[] = [];
-      const pbDir = join(handleDir, "playbooks");
-      if (existsSync(pbDir)) {
-        for (const file of readdirSync(pbDir)) {
-          if (!file.endsWith(".md") || file.startsWith("_") || file.startsWith(".")) continue;
-          const parsed = parseFrontmatter(readFileSync(join(pbDir, file), "utf8"));
-          playbooks.push({
-            slug: (parsed.fm.slug as string) || file.replace(/\.md$/, ""),
-            author: handle,
-            category: cat,
-            frontmatter: parsed.fm,
-            body: parsed.body,
-          });
-        }
-      }
-      result.push({ handle, category: cat, profile: fm, profile_body: body, goat, playbooks });
+      result.push({ handle, category: cat, profile: fm, profile_body: body, goat });
     }
   }
   return result;
 }
 
-const humans = loadHumans();
+function loadSkills(): Skill[] {
+  if (!existsSync(SKILLS_DIR)) return [];
+  const result: Skill[] = [];
+  for (const slug of readdirSync(SKILLS_DIR)) {
+    if (slug.startsWith("_") || slug.startsWith(".")) continue;
+    const skillDir = join(SKILLS_DIR, slug);
+    if (!statSync(skillDir).isDirectory()) continue;
+    const skillPath = join(skillDir, "skill.md");
+    if (!existsSync(skillPath)) continue;
+    const { fm, body } = parseFrontmatter(readFileSync(skillPath, "utf8"));
+    result.push({ slug: (fm.slug as string) || slug, frontmatter: fm, body });
+  }
+  return result;
+}
+
+const humans = loadEntityWithGoat(HUMANS_DIR);
+const agents = loadEntityWithGoat(AGENTS_DIR);
+const skills = loadSkills();
+
 const index = {
   generated_at: new Date().toISOString(),
+  schema_version: "0.2",
   count_humans: humans.length,
-  count_playbooks: humans.reduce((n, h) => n + h.playbooks.length, 0),
-  count_runnable_playbooks: humans.reduce((n, h) => n + h.playbooks.filter((pb) => pb.frontmatter.runnable).length, 0),
-  count_with_goat_file: humans.filter((h) => h.goat).length,
-  count_categories: new Set(humans.map((h) => h.category)).size,
+  count_agents: agents.length,
+  count_skills: skills.length,
+  count_with_goat_human: humans.filter((h) => h.goat).length,
+  count_with_goat_agent: agents.filter((a) => a.goat).length,
+  count_categories: new Set([...humans, ...agents].map((e) => e.category)).size,
   humans,
+  agents,
+  skills,
 };
 
 writeFileSync(OUT, JSON.stringify(index, null, 2));
 console.log(`Wrote ${OUT}`);
-console.log(`  ${index.count_humans} humans, ${index.count_playbooks} playbooks, ${index.count_categories} active categories`);
+console.log(`  ${index.count_humans} humans, ${index.count_agents} agents, ${index.count_skills} skills`);
+console.log(`  ${index.count_categories} active categories`);

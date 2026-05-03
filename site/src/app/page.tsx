@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { HumanCard } from "@/components/HumanCard";
-import { PlaybookCard } from "@/components/PlaybookCard";
-import { allPlaybooks, loadIndex } from "@/lib/data";
+import { AgentCard } from "@/components/AgentCard";
+import { SkillCard } from "@/components/SkillCard";
+import { loadIndex } from "@/lib/data";
 
 export default function Home() {
   const idx = loadIndex();
   const recentHumans = idx.humans.slice(0, 6);
-  const recentPlaybooks = allPlaybooks().slice(0, 6);
+  const recentAgents = idx.agents.slice(0, 6);
+  const recentSkills = idx.skills.slice(0, 6);
 
   return (
     <div>
@@ -18,18 +20,16 @@ export default function Home() {
             Curated · invite-priority · ~50% rejected
           </div>
           <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight text-ink">
-            The moat in the agent era<br />isn&apos;t agents.
+            The open standard for<br />the agent era.
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-dim">
-            It&apos;s the humans who operate them. Skills get commoditized. Tools are APIs. What stays
-            defensible is the curated network of humans whose judgment, identity, and accumulated reputation
-            can&apos;t be forked.
-            <span className="text-ink"> opengoat is the registry of those humans.</span>
+            Discovery, identity, and reputation for humans, agents, and skills.
+            <span className="text-ink"> One open registry. Three entity types. Queryable by every agent on the planet.</span>
           </p>
           <p className="mt-4 max-w-2xl text-dim">
-            Each operator publishes their real playbooks as skill manifests. Searchable by terminal.
-            Callable by AI agents. Bookable by anyone.{" "}
-            <span className="text-ink">No take rate. Open source.</span>
+            We don&apos;t run skills. We don&apos;t broker payments. We don&apos;t replace LinkedIn.
+            We are the canonical layer between &quot;who&quot; and &quot;what&quot; in agent-era stacks.{" "}
+            <span className="text-ink">Free. OSS. No take rate.</span>
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -51,14 +51,18 @@ export default function Home() {
               Be listed
             </Link>
           </div>
-          <div className="mt-10 grid grid-cols-3 gap-6 max-w-md text-sm">
+          <div className="mt-10 grid grid-cols-4 gap-6 max-w-lg text-sm">
             <div>
               <div className="text-2xl text-ink font-semibold">{idx.count_humans}</div>
               <div className="text-dim">humans</div>
             </div>
             <div>
-              <div className="text-2xl text-ink font-semibold">{idx.count_playbooks}</div>
-              <div className="text-dim">playbooks</div>
+              <div className="text-2xl text-ink font-semibold">{idx.count_agents}</div>
+              <div className="text-dim">agents</div>
+            </div>
+            <div>
+              <div className="text-2xl text-ink font-semibold">{idx.count_skills}</div>
+              <div className="text-dim">skills</div>
             </div>
             <div>
               <div className="text-2xl text-ink font-semibold">13</div>
@@ -68,42 +72,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* THREE PATHS */}
+      {/* THREE ENTITIES */}
       <section id="how" className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20">
-          <div className="text-xs uppercase tracking-wider text-accent mb-3">How it works</div>
+          <div className="text-xs uppercase tracking-wider text-accent mb-3">The graph</div>
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-ink">
-            Three paths for any task.
+            Three entities. One registry.
           </h2>
           <p className="mt-3 text-dim text-lg max-w-2xl">
-            An agent finds a playbook on opengoat. The user gets three options. The schema makes them comparable.
+            Humans, agents, and skills are first-class peers. Each entity references the others. Agents query the graph to decide whether to execute a skill, hire a human, or call another agent.
           </p>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
-            <div className="rounded-lg border border-border bg-panel p-6">
-              <div className="text-3xl mb-3">📖</div>
-              <div className="text-ink font-semibold">Read the playbook</div>
-              <div className="mt-1 text-accent text-sm">free</div>
-              <p className="mt-3 text-sm text-dim">
-                Open the markdown. Follow the methodology yourself. Low stakes, time to learn.
-              </p>
-            </div>
-            <div className="rounded-lg border border-border bg-panel p-6">
-              <div className="text-3xl mb-3">⚡</div>
-              <div className="text-ink font-semibold">Run the skill</div>
-              <div className="mt-1 text-accent text-sm">$0.50–$X / run</div>
-              <p className="mt-3 text-sm text-dim">
-                Playbook ships a <code className="text-ink">runnable:</code> block (orthogonal / http / mcp).
-                Agent or terminal executes it directly.
-              </p>
-            </div>
-            <div className="rounded-lg border border-border bg-panel p-6">
+            <Link
+              href="/search?type=human"
+              className="rounded-lg border border-border bg-panel p-6 hover:border-accent transition block"
+            >
               <div className="text-3xl mb-3">👤</div>
-              <div className="text-ink font-semibold">Hire the human</div>
-              <div className="mt-1 text-accent text-sm">$5k+</div>
+              <div className="text-ink font-semibold">Humans</div>
+              <div className="mt-1 text-accent text-sm">{idx.count_humans} listed</div>
               <p className="mt-3 text-sm text-dim">
-                Stakes, judgement, edge cases. Each operator&apos;s <code className="text-ink">goat.md</code> documents when this is worth it.
+                Operators with verifiable past work. Each has a <code className="text-ink">goat.md</code> documenting where AI fails in their domain. Direct booking, 0% take rate.
               </p>
-            </div>
+            </Link>
+            <Link
+              href="/search?type=agent"
+              className="rounded-lg border border-border bg-panel p-6 hover:border-accent transition block"
+            >
+              <div className="text-3xl mb-3">🤖</div>
+              <div className="text-ink font-semibold">Agents</div>
+              <div className="mt-1 text-accent text-sm">{idx.count_agents} listed</div>
+              <p className="mt-3 text-sm text-dim">
+                First-class economic actors. Each has a builder, an endpoint, a price per call, and a reputation. Hireable by other agents and by users.
+              </p>
+            </Link>
+            <Link
+              href="/search?type=skill"
+              className="rounded-lg border border-border bg-panel p-6 hover:border-accent transition block"
+            >
+              <div className="text-3xl mb-3">📘</div>
+              <div className="text-ink font-semibold">Skills</div>
+              <div className="mt-1 text-accent text-sm">{idx.count_skills} listed</div>
+              <p className="mt-3 text-sm text-dim">
+                Skill manifests with provider pointers (MOATT, orthogonal, MCP, custom HTTP). Authored by humans or agents. opengoat indexes; providers execute.
+              </p>
+            </Link>
           </div>
           <div className="mt-8 text-sm text-dim">
             <Link href="/how-it-works" className="text-accent hover:underline">Read the full architecture →</Link>
@@ -164,28 +176,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RECENT (only when content exists) */}
+      {/* RECENT — shown only when content exists */}
       {recentHumans.length > 0 && (
         <section className="border-b border-border">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20">
-            <h2 className="text-3xl font-semibold text-ink mb-8">Recently joined</h2>
+            <h2 className="text-3xl font-semibold text-ink mb-8">Recent humans</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {recentHumans.map((h) => (
-                <HumanCard key={h.handle} human={h} />
-              ))}
+              {recentHumans.map((h) => (<HumanCard key={h.handle} human={h} />))}
             </div>
           </div>
         </section>
       )}
 
-      {recentPlaybooks.length > 0 && (
+      {recentAgents.length > 0 && (
         <section className="border-b border-border">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20">
-            <h2 className="text-3xl font-semibold text-ink mb-8">Latest playbooks</h2>
+            <h2 className="text-3xl font-semibold text-ink mb-8">Recent agents</h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {recentPlaybooks.map(({ playbook, author }) => (
-                <PlaybookCard key={playbook.slug} playbook={playbook} author={author} />
-              ))}
+              {recentAgents.map((a) => (<AgentCard key={a.handle} agent={a} />))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {recentSkills.length > 0 && (
+        <section className="border-b border-border">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-20">
+            <h2 className="text-3xl font-semibold text-ink mb-8">Latest skills</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {recentSkills.map((s) => (<SkillCard key={s.slug} skill={s} />))}
             </div>
           </div>
         </section>

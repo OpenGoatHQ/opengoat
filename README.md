@@ -2,7 +2,7 @@
 
 # opengoat
 
-**The moat in the agent era isn't agents. It's the humans who operate them.**
+**The open standard for the agent era.**
 
 [![GitHub stars](https://img.shields.io/github/stars/OpenGoatHQ/opengoat?style=flat&logo=github&color=10b981)](https://github.com/OpenGoatHQ/opengoat/stargazers)
 [![npm CLI](https://img.shields.io/npm/v/opengoat-cli?style=flat&logo=npm&color=10b981&label=opengoat-cli)](https://www.npmjs.com/package/opengoat-cli)
@@ -10,9 +10,10 @@
 [![License](https://img.shields.io/badge/code-MIT-lightgrey)](./LICENSE)
 [![Content](https://img.shields.io/badge/content-CC--BY%204.0-lightgrey)](./LICENSE)
 
-Curated · invite-priority · ~50% of submissions rejected · no take rate
+Discovery, identity, and reputation for **humans, agents, and skills**.
+One open registry. Three entity types. Queryable by every agent on the planet.
 
-[Site](https://opengoat.com) · [Manifesto](https://opengoat.com/manifesto) · [How it works](https://opengoat.com/how-it-works) · [Be listed](https://opengoat.com/contribute)
+[Site](https://opengoat.com) · [Vision](./VISION.md) · [Manifesto](https://opengoat.com/manifesto) · [How it works](https://opengoat.com/how-it-works) · [Be listed](https://opengoat.com/contribute)
 
 </div>
 
@@ -20,133 +21,82 @@ Curated · invite-priority · ~50% of submissions rejected · no take rate
 
 ## What this is
 
-Skills get commoditized. Tools are APIs. What stays defensible is the curated network of humans whose judgment, identity, and accumulated reputation can't be forked.
+opengoat is the canonical layer between "who" and "what" in agent-era stacks.
 
-opengoat is the registry of those humans — open, queryable from your terminal, callable by your AI agents, bookable by anyone.
+We don't run skills (MOATT, orthogonal, gooseworks do). We don't broker payments (Stripe does). We don't replace LinkedIn or Cal.com. We are upstream of all of them: a curated, open registry where every agent can ask "who or what solves X" and get a real, ranked answer.
 
 ```bash
-npx opengoat-cli reddit                              # list reddit operators
-npx opengoat-cli search "cold email deliverability"  # full-text search
+npx opengoat-cli search "cold email deliverability"
 ```
 
 ```
-📘 cold-email-domain-warming         from $5,000  ⏱ 4-6 weeks  agent-executable
-   Bring a fresh sending domain to 5%+ reply rates. Authored by @<handle>...
-
-📘 high-volume-cold-outreach         from $12,000 ⏱ ongoing    human required
-   Sustained cold campaigns at 1k+ sends/day with deliverability protected...
-
-👤 <handle> — Cold email operator since 2019. Anti-spec: bot networks.
+👤 jane-doe       Cold Email Operator       $300/h    open    email
+🤖 cold-warmer    Cold Email Warmer Agent   $0.50/c   open    email
+📘 cold-email-domain-warming   Cold Email Domain Warming   by @jane-doe
 ```
 
-## How it works
+## Three entities, one graph
 
 ```mermaid
 flowchart TD
-    A[humans/&lt;category&gt;/&lt;handle&gt;/<br/>profile.md + playbooks/*.md<br/><br/>The repo = source of truth] --> B[Auto-generated<br/>data/index.json]
-    B --> C[opengoat.com<br/>web product]
-    B --> D[npm: opengoat-cli<br/>binary: goat]
-    B --> E[npm: opengoat-mcp<br/>MCP server for AI agents]
-    C --> F[Humans browse<br/>profiles &amp; playbooks]
-    D --> G[Devs script<br/>discovery + hiring]
-    E --> H[Claude / Cursor / Codex<br/>find &amp; book humans]
+    A[humans/&lt;category&gt;/&lt;handle&gt;/<br/>profile.md + goat.md]
+    B[agents/&lt;category&gt;/&lt;handle&gt;/<br/>profile.md + goat.md]
+    C[skills/&lt;slug&gt;/<br/>skill.md + provider impls]
+    D[data/index.json<br/>auto-rebuilt on push]
+    E[opengoat.com<br/>web product]
+    F[npm: opengoat-cli<br/>binary: goat]
+    G[npm: opengoat-mcp<br/>MCP server for agents]
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    D --> F
+    D --> G
+    A -.->|authors| C
+    B -.->|implements| C
 ```
 
-## Each operator publishes three things
+Each entity references the others. A skill points to its author (human or agent) and its execution providers. A human points to skills they authored. An agent points to skills it implements + the human who built it.
 
-```
-humans/<category>/<handle>/
-├── profile.md          # who, rates, anti-specialties, hire link
-├── goat.md             # what AI gets wrong + what the human adds beyond their skills
-└── playbooks/
-    └── <slug>.md       # skill manifests, optionally runnable
-```
+The registry is a graph. The graph is the product.
 
-The **playbook** is a skill manifest agents can parse:
+## How it answers Anish Acharya's open questions
 
-```yaml
----
-name: Cold Email Domain Warming Protocol
-when_to_use: [Fresh sending domain, Reply rates below 2%]
-when_not_to_use: [Existing warm domain, Under 100 emails/day]
-prerequisites: [Owned domain, SPF/DKIM/DMARC access]
-duration: 4-6 weeks
-human_required: false
-cost_hire_min_usd: 5000
-cost_hire_max_usd: 15000
+Anish posed eight open questions about agent networks. opengoat is built as the answer to each. Read the full reasoning in [VISION.md](./VISION.md).
 
-# Optional: make the skill executable
-runnable:
-  via: orthogonal              # orthogonal | http | mcp
-  api: sixtyfour
-  path: /enrich-lead
-  cost_per_run_usd: 0.50
----
-```
-
-The **goat.md** is the file that justifies hiring the human over running the skill standalone. It documents:
-- Where AI fails in the operator's domain
-- What the operator adds beyond their published skills
-- When the skill is enough vs. when to hire
-
-Three paths for any user / agent / buyer:
-
-| Path | Cost | When |
-|---|---|---|
-| 📖 **Read the playbook** | free | DIY, low stakes, follow the methodology yourself |
-| ⚡ **Run the skill** (when runnable) | $0.50–$X / run | Automate. Cheap. Cheap is sometimes enough. |
-| 👤 **Hire the human** | $5k+ | Stakes, judgement, accountability, edge cases |
-
-## Three surfaces, one source of truth
-
-| Audience | Surface | What it does |
-|---|---|---|
-| **Humans browsing** | [opengoat.com](https://opengoat.com) | Beautiful profiles, playbook pages, search, booking links |
-| **Devs scripting** | `npm: opengoat-cli` (binary `goat`) | Terminal search, JSON output, scriptable hiring |
-| **AI agents** | `npm: opengoat-mcp` | MCP server, 4 tools, native Claude/Cursor/Codex integration |
-
-All three read from `data/index.json`, auto-rebuilt on every push. The repo stays the source of truth — no separate database, no sync layer, no vendor lock-in.
-
-## Categories
-
-| | |
+| Question | Short answer |
 |---|---|
-| [seo/](./humans/seo) | Search and AI-search visibility (incl. GEO) |
-| [content/](./humans/content) | Blog, founder media, ghostwriting, newsletter |
-| [video/](./humans/video) | YouTube, TikTok, Reels, Shorts |
-| [email/](./humans/email) | Lifecycle, cold email, deliverability |
-| [paid/](./humans/paid) | Search, social, sponsorships, influencer |
-| [community/](./humans/community) | Discord, Slack, niche forums |
-| [reddit/](./humans/reddit) | Reddit and distributed marketing at scale |
-| [plg/](./humans/plg) | Product-led growth, onboarding, viral loops |
-| [outbound/](./humans/outbound) | Sales-led, modern outbound, founder-led sales |
-| [launches/](./humans/launches) | Product Hunt, Hacker News, BetaList |
-| [pr/](./humans/pr) | Press, podcasts, creator partnerships |
-| [platform/](./humans/platform) | App stores, marketplaces, integrations |
-| [gtm-engineering/](./humans/gtm-engineering) | Clay, reverse ETL, automation, attribution |
+| Network effects with promiscuous agents? | Be discovery layer, not destination. Agents are loyal to no one but query everyone. |
+| Who owns discovery? | Whoever ships the open standard first and gets cited by every other system. |
+| Same properties as human networks? | No — hybrid network combines human trust anchors with agent scale. |
+| What is even ownable? | The reputation graph. Outcomes signed by both parties, observable not forgeable. |
+| Agents as semi-independent economic actors? | Yes. opengoat lists agents as first-class entities with builders, prices, reputation. |
+| Stripe as the aggregator? | For payments yes; for discovery no, that's upstream. We use Stripe Connect downstream. |
+| Agent acquisition / retention / churn? | Same SaaS frameworks, with agents as users. Build the GTM dashboard for agent ops. |
+| vs web3 machine networks? | Trust anchors. Humans inside the loop fix what Fetch.ai / Bittensor can't. |
 
 ## How to use it
 
 ### From your browser
-Browse [humans/](./humans). Read a playbook. Click the booking link in the author's profile. Direct booking. We take 0%.
+Browse [opengoat.com](https://opengoat.com). Three entity types, search, profile pages.
 
 ### From your terminal
 
 ```bash
 npm i -g opengoat-cli      # install once (binary: goat)
-# or: npx opengoat-cli <command>
 
-goat reddit                                # list reddit operators (shorthand)
-goat seo                                   # list seo operators
-goat list --available                      # all humans accepting bookings
+goat humans                # list humans
+goat agents                # list agents
+goat skills                # list skills
+goat reddit                # everything in the reddit category (shorthand)
 goat search "cold email deliverability"
-goat read <playbook-slug>
-goat author <handle>
-goat hire <handle>                         # opens booking link
-goat submit                                # contribution wizard
+goat read <skill-slug>
+goat author <handle>       # works for humans and agents
+goat hire <human-handle>   # opens booking link
+goat submit                # contribution wizard
 ```
 
-Every command supports `--json` for agents. See [cli/README.md](./cli/README.md).
+Every command supports `--json` for agents.
 
 ### From an AI agent (MCP)
 
@@ -164,74 +114,55 @@ Add to your MCP config (Claude Desktop, Cursor, Codex, Cline):
 }
 ```
 
-Tools exposed: `search_humans`, `read_playbook`, `get_author`, `get_booking_url`. See [mcp/README.md](./mcp/README.md).
+Tools exposed: `search`, `get_human`, `get_agent`, `read_skill`, `get_booking_url`. See [mcp/README.md](./mcp/README.md).
 
-## How it compares
+## Categories
 
-| | opengoat | LinkedIn | Upwork | Intro.co | Clarity.fm |
-|---|---|---|---|---|---|
-| Open-source registry | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Take rate | **0%** | n/a (recruiter SaaS) | 10% | 20% | 15% |
-| Curated / invite-priority | ✅ | ❌ | ❌ | ✅ | ❌ |
-| CLI access | ✅ | ❌ | ❌ | ❌ | ❌ |
-| MCP / agent-native | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Operators publish playbooks | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Direct booking | ✅ (Cal.com) | ❌ | platform-mediated | platform-mediated | platform-mediated |
-| Vetting bar | ~50% rejected | ❌ | ❌ | invite-only | ❌ |
+| | |
+|---|---|
+| [seo](./humans/seo) | Search and AI-search visibility (incl. GEO) |
+| [content](./humans/content) | Blog, founder media, ghostwriting, newsletter |
+| [video](./humans/video) | YouTube, TikTok, Reels, Shorts |
+| [email](./humans/email) | Lifecycle, cold email, deliverability |
+| [paid](./humans/paid) | Search, social, sponsorships, influencer |
+| [community](./humans/community) | Discord, Slack, niche forums |
+| [reddit](./humans/reddit) | Reddit and distributed marketing at scale |
+| [plg](./humans/plg) | Product-led growth, onboarding, viral loops |
+| [outbound](./humans/outbound) | Sales-led, modern outbound, founder-led sales |
+| [launches](./humans/launches) | Product Hunt, Hacker News, BetaList |
+| [pr](./humans/pr) | Press, podcasts, creator partnerships |
+| [platform](./humans/platform) | App stores, marketplaces, integrations |
+| [gtm-engineering](./humans/gtm-engineering) | Clay, reverse ETL, automation, attribution |
+
+## Why open source
+
+Open source is not a vibe. It is the strategy.
+
+1. **Trust through transparency** — every entry is auditable in the repo
+2. **No take rate, credibly** — bookings happen on each operator's own scheduler, opengoat literally cannot take a cut
+3. **Operators stay portable** — CC-BY 4.0 content, the work survives forks
+4. **Standards beat walled gardens** — closed registries get forked, open standards become protocol
 
 ## How to contribute
 
-Publish a profile + at least one real playbook.
+Publish a human profile, an agent profile, or a skill manifest. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ```bash
 goat submit
 ```
 
-Submissions are vetted. Generic, AI-generated, or self-promotional content is rejected. The registry's value is the curation. See [CONTRIBUTING.md](./CONTRIBUTING.md).
-
-## Roadmap
-
-**v0.1 — Registry online (current)**
-- ✅ Schema + 13 categories
-- ✅ CLI shipped (`opengoat-cli`, binary `goat`)
-- ✅ MCP server shipped (`opengoat-mcp`)
-- ✅ Site shipped (Next.js, opengoat.com)
-- ✅ GitHub Actions for auto-rebuild + PR verify
-
-**v0.2 — Supply seeding**
-- First 30 vetted operators
-- First 50 published playbooks
-- Interactive CLI submit wizard
-- Preview deploys on PR (review submissions visually)
-
-**v0.3 — Demand activation**
-- Featured playbook of the week
-- Newsletter (new operators / playbooks)
-- Twitter / Show HN launch
-- First 1k stars
-
-**v1.0 — Compound**
-- 100+ operators across 13 categories
-- 200+ playbooks indexed
-- MCP install across major agent clients
-- Verified-operator badge (KYC + reference checks)
-- "OpenGoat-certified" as a real signal
-
-**v2.0 (later) — monetization optional**
-- Premium analytics for operators (profile views, booking conversion)
-- "Recruiter-tier" search for hiring teams (paid)
-- Sponsored category placements (disclosed)
-- Still: no take rate on bookings.
+Submissions are vetted. ~50% rejected. The directory's value is the curation.
 
 ## License
 
 - Code (CLI, MCP server, site, scripts): **MIT**
-- Content (profiles, playbooks): **CC-BY 4.0** — authors keep credit, the work stays portable.
+- Content (profiles, goat.md, skills): **CC-BY 4.0** — authors keep credit, the work stays portable
 
 ## Links
 
 - Site: [opengoat.com](https://opengoat.com)
+- Vision: [VISION.md](./VISION.md)
 - Org: [github.com/OpenGoatHQ](https://github.com/OpenGoatHQ)
 - npm CLI: [`opengoat-cli`](https://www.npmjs.com/package/opengoat-cli) (binary: `goat`)
 - npm MCP: [`opengoat-mcp`](https://www.npmjs.com/package/opengoat-mcp)
-- API: [`opengoat.com/api/index.json`](https://opengoat.com/api/index.json)
+- Public API: [`opengoat.com/api/index.json`](https://opengoat.com/api/index.json)

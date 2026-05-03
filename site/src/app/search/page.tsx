@@ -1,24 +1,15 @@
 import type { Metadata } from "next";
-import { allPlaybooks, loadIndex } from "@/lib/data";
+import { loadIndex } from "@/lib/data";
 import { SearchClient } from "@/components/SearchClient";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search opengoat humans and playbooks.",
+  description: "Search opengoat humans, agents, and skills.",
 };
 
 export default function SearchPage() {
   const idx = loadIndex();
-  const playbooks = allPlaybooks().map(({ playbook, author }) => ({
-    type: "playbook" as const,
-    handle: author.handle,
-    slug: playbook.slug,
-    title: (playbook.frontmatter.name as string) || playbook.slug,
-    description: (playbook.frontmatter.description as string) || "",
-    body: playbook.body,
-    category: playbook.category,
-    tags: Array.isArray(playbook.frontmatter.tags) ? playbook.frontmatter.tags : [],
-  }));
+
   const humans = idx.humans.map((h) => ({
     type: "human" as const,
     handle: h.handle,
@@ -29,15 +20,35 @@ export default function SearchPage() {
     specialties: Array.isArray(h.profile.specialties) ? h.profile.specialties : [],
   }));
 
+  const agents = idx.agents.map((a) => ({
+    type: "agent" as const,
+    handle: a.handle,
+    title: (a.profile.name as string) || a.handle,
+    description: a.profile_body.slice(0, 200),
+    body: a.profile_body,
+    category: a.category,
+    specialties: Array.isArray(a.profile.specialties) ? a.profile.specialties : [],
+  }));
+
+  const skills = idx.skills.map((s) => ({
+    type: "skill" as const,
+    slug: s.slug,
+    handle: (s.frontmatter.author as string) || "",
+    title: (s.frontmatter.name as string) || s.slug,
+    description: (s.frontmatter.description as string) || "",
+    body: s.body,
+    category: (s.frontmatter.category as string) || "",
+    tags: Array.isArray(s.frontmatter.tags) ? s.frontmatter.tags : [],
+  }));
+
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-12">
       <h1 className="text-3xl font-semibold tracking-tight text-ink">Search</h1>
       <p className="mt-2 text-dim">
-        Across {humans.length} {humans.length === 1 ? "human" : "humans"} and {playbooks.length}{" "}
-        {playbooks.length === 1 ? "playbook" : "playbooks"}.
+        Across {humans.length} humans, {agents.length} agents, and {skills.length} skills.
       </p>
       <div className="mt-8">
-        <SearchClient humans={humans} playbooks={playbooks} />
+        <SearchClient humans={humans} agents={agents} skills={skills} />
       </div>
     </div>
   );

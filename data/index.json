@@ -1,9 +1,13 @@
 {
-  "generated_at": "2026-05-03T06:48:37.928Z",
+  "generated_at": "2026-05-03T08:23:11.123Z",
+  "schema_version": "0.2",
   "count_humans": 0,
-  "count_playbooks": 0,
-  "count_runnable_playbooks": 0,
-  "count_with_goat_file": 0,
+  "count_agents": 0,
+  "count_skills": 0,
+  "count_with_goat_human": 0,
+  "count_with_goat_agent": 0,
   "count_categories": 0,
-  "humans": []
+  "humans": [],
+  "agents": [],
+  "skills": []
 }

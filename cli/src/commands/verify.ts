@@ -1,20 +1,9 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-const REQUIRED_PROFILE = ["name", "handle", "specialties", "anti_specialties", "booking_url", "accepting_bookings"];
-const REQUIRED_PLAYBOOK = [
-  "name",
-  "slug",
-  "author",
-  "tags",
-  "category",
-  "description",
-  "when_to_use",
-  "when_not_to_use",
-  "duration",
-  "human_required",
-  "cost_hire_min_usd",
-];
+const REQUIRED_HUMAN = ["name", "handle", "specialties", "anti_specialties", "booking_url", "accepting_bookings"];
+const REQUIRED_AGENT = ["name", "handle", "builder", "specialties", "runtime", "endpoint", "accepting_calls"];
+const REQUIRED_SKILL = ["name", "slug", "category", "description", "author", "author_type", "when_to_use", "when_not_to_use"];
 
 export async function verify(target: string) {
   const errors: string[] = [];
@@ -27,7 +16,7 @@ export async function verify(target: string) {
     const raw = src.slice(3, end).trim();
     const fm: Record<string, any> = {};
     let key: string | null = null;
-    let list: string[] | null = null;
+    let list: any[] | null = null;
     for (const line of raw.split("\n")) {
       if (line.startsWith("  - ") && list) {
         list.push(line.slice(4).trim());
@@ -48,54 +37,69 @@ export async function verify(target: string) {
     return fm;
   }
 
-  function checkProfile(path: string, label: string) {
-    if (!existsSync(path)) {
-      errors.push(`${label}: missing profile.md`);
-      return;
-    }
-    const fm = readFm(path);
-    for (const f of REQUIRED_PROFILE) {
-      if (!(f in fm)) errors.push(`${label}: missing field '${f}'`);
+  function checkProfileDir(dir: string, requiredFields: string[], label: string) {
+    if (!existsSync(dir)) return;
+    for (const cat of readdirSync(dir)) {
+      if (cat.startsWith("_") || cat.startsWith(".")) continue;
+      const catDir = join(dir, cat);
+      if (!statSync(catDir).isDirectory()) continue;
+      for (const handle of readdirSync(catDir)) {
+        if (handle === "README.md" || handle.startsWith(".")) continue;
+        const handleDir = join(catDir, handle);
+        if (!statSync(handleDir).isDirectory()) continue;
+        const profilePath = join(handleDir, "profile.md");
+        if (!existsSync(profilePath)) {
+          errors.push(`${label}/${cat}/${handle}: missing profile.md`);
+          continue;
+        }
+        const fm = readFm(profilePath);
+        for (const f of requiredFields) {
+          if (!(f in fm)) errors.push(`${label}/${cat}/${handle}/profile.md: missing field '${f}'`);
+        }
+      }
     }
   }
 
-  function checkPlaybook(path: string, label: string) {
-    const fm = readFm(path);
-    for (const f of REQUIRED_PLAYBOOK) {
-      if (!(f in fm)) errors.push(`${label}: missing field '${f}'`);
+  function checkSkillsDir(dir: string) {
+    if (!existsSync(dir)) return;
+    for (const slug of readdirSync(dir)) {
+      if (slug.startsWith("_") || slug.startsWith(".")) continue;
+      const skillDir = join(dir, slug);
+      if (!statSync(skillDir).isDirectory()) continue;
+      const skillPath = join(skillDir, "skill.md");
+      if (!existsSync(skillPath)) {
+        errors.push(`skills/${slug}: missing skill.md`);
+        continue;
+      }
+      const fm = readFm(skillPath);
+      for (const f of REQUIRED_SKILL) {
+        if (!(f in fm)) errors.push(`skills/${slug}/skill.md: missing field '${f}'`);
+      }
     }
   }
 
   if (statSync(target).isDirectory()) {
-    const humansDir = existsSync(join(target, "humans")) ? join(target, "humans") : target;
-    if (!existsSync(humansDir)) {
-      console.error(`No humans/ directory at ${target}`);
+    const humans = existsSync(join(target, "humans")) ? join(target, "humans") : null;
+    const agents = existsSync(join(target, "agents")) ? join(target, "agents") : null;
+    const skills = existsSync(join(target, "skills")) ? join(target, "skills") : null;
+
+    if (humans) checkProfileDir(humans, REQUIRED_HUMAN, "humans");
+    if (agents) checkProfileDir(agents, REQUIRED_AGENT, "agents");
+    if (skills) checkSkillsDir(skills);
+
+    if (!humans && !agents && !skills) {
+      console.error(`No humans/, agents/, or skills/ directory found at ${target}`);
       process.exit(1);
     }
-    for (const cat of readdirSync(humansDir)) {
-      if (cat.startsWith("_") || cat.startsWith(".")) continue;
-      const catDir = join(humansDir, cat);
-      if (!statSync(catDir).isDirectory()) continue;
-      const catReadme = join(catDir, "README.md");
-      if (existsSync(catReadme)) {
-        for (const handle of readdirSync(catDir)) {
-          if (handle === "README.md" || handle.startsWith(".")) continue;
-          const handleDir = join(catDir, handle);
-          if (!statSync(handleDir).isDirectory()) continue;
-          checkProfile(join(handleDir, "profile.md"), `humans/${cat}/${handle}/profile.md`);
-          const pbDir = join(handleDir, "playbooks");
-          if (existsSync(pbDir)) {
-            for (const file of readdirSync(pbDir)) {
-              if (!file.endsWith(".md") || file.startsWith("_")) continue;
-              checkPlaybook(join(pbDir, file), `humans/${cat}/${handle}/playbooks/${file}`);
-            }
-          }
-        }
-      }
-    }
   } else {
-    if (target.endsWith("profile.md")) checkProfile(target, target);
-    else checkPlaybook(target, target);
+    const fm = readFm(target);
+    if (target.includes("/skills/") || target.endsWith("skill.md")) {
+      for (const f of REQUIRED_SKILL) if (!(f in fm)) errors.push(`${target}: missing field '${f}'`);
+    } else if (target.includes("/agents/")) {
+      for (const f of REQUIRED_AGENT) if (!(f in fm)) errors.push(`${target}: missing field '${f}'`);
+    } else {
+      for (const f of REQUIRED_HUMAN) if (!(f in fm)) errors.push(`${target}: missing field '${f}'`);
+    }
   }
 
   if (errors.length) {
@@ -103,5 +107,5 @@ export async function verify(target: string) {
     for (const e of errors) console.error(`  - ${e}`);
     process.exit(1);
   }
-  console.log("All profiles and playbooks valid.");
+  console.log("All entities valid.");
 }

@@ -1,10 +1,10 @@
-import { loadIndex, type Human, type Playbook } from "../lib/data.js";
+import { loadIndex } from "../lib/data.js";
 
 type Opts = { json?: boolean; noCache?: boolean; registry?: string };
 
 type Hit = {
-  type: "playbook" | "human";
-  handle: string;
+  type: "human" | "agent" | "skill";
+  handle?: string;
   slug?: string;
   title: string;
   score: number;
@@ -13,41 +13,53 @@ type Hit = {
 
 export async function search(query: string, opts: Opts) {
   const idx = await loadIndex({ noCache: opts.noCache, registry: opts.registry });
-  const terms = query
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean);
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
   if (terms.length === 0) {
     console.error("Empty query.");
     process.exit(1);
   }
 
   const hits: Hit[] = [];
+
   for (const h of idx.humans) {
-    const profileText = (h.profile_body + " " + JSON.stringify(h.profile)).toLowerCase();
-    const profileScore = score(profileText, terms);
-    if (profileScore > 0) {
+    const text = (h.profile_body + " " + JSON.stringify(h.profile)).toLowerCase();
+    const sc = score(text, terms);
+    if (sc > 0) {
       hits.push({
         type: "human",
         handle: h.handle,
-        title: h.profile.name || h.handle,
-        score: profileScore,
+        title: (h.profile.name as string) || h.handle,
+        score: sc,
         snippet: snippet(h.profile_body, terms),
       });
     }
-    for (const pb of h.playbooks) {
-      const text = (pb.body + " " + JSON.stringify(pb.frontmatter)).toLowerCase();
-      const sc = score(text, terms);
-      if (sc > 0) {
-        hits.push({
-          type: "playbook",
-          handle: h.handle,
-          slug: pb.slug,
-          title: (pb.frontmatter.title as string) || pb.slug,
-          score: sc,
-          snippet: snippet(pb.body, terms),
-        });
-      }
+  }
+
+  for (const a of idx.agents) {
+    const text = (a.profile_body + " " + JSON.stringify(a.profile)).toLowerCase();
+    const sc = score(text, terms);
+    if (sc > 0) {
+      hits.push({
+        type: "agent",
+        handle: a.handle,
+        title: (a.profile.name as string) || a.handle,
+        score: sc,
+        snippet: snippet(a.profile_body, terms),
+      });
+    }
+  }
+
+  for (const s of idx.skills) {
+    const text = (s.body + " " + JSON.stringify(s.frontmatter)).toLowerCase();
+    const sc = score(text, terms);
+    if (sc > 0) {
+      hits.push({
+        type: "skill",
+        slug: s.slug,
+        title: (s.frontmatter.name as string) || s.slug,
+        score: sc,
+        snippet: snippet(s.body, terms),
+      });
     }
   }
 
@@ -62,8 +74,9 @@ export async function search(query: string, opts: Opts) {
     return;
   }
   for (const hit of hits.slice(0, 20)) {
-    const head = hit.type === "playbook" ? `📘 ${hit.title} (${hit.slug}) — by ${hit.handle}` : `👤 ${hit.title} (${hit.handle})`;
-    console.log(head);
+    const icon = hit.type === "human" ? "👤" : hit.type === "agent" ? "🤖" : "📘";
+    const id = hit.type === "skill" ? hit.slug : `@${hit.handle}`;
+    console.log(`${icon} ${hit.title} (${id})`);
     console.log(`   ${hit.snippet}`);
     console.log();
   }
@@ -71,10 +84,7 @@ export async function search(query: string, opts: Opts) {
 
 function score(text: string, terms: string[]): number {
   let n = 0;
-  for (const t of terms) {
-    const matches = text.split(t).length - 1;
-    n += matches;
-  }
+  for (const t of terms) n += text.split(t).length - 1;
   return n;
 }
 
