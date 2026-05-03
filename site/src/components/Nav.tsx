@@ -9,6 +9,7 @@ export function Nav() {
         </Link>
         <div className="flex items-center gap-6 text-sm text-dim">
           <Link href="/manifesto" className="hover:text-ink transition">manifesto</Link>
+          <Link href="/how-it-works" className="hover:text-ink transition">how it works</Link>
           <Link href="/cli" className="hover:text-ink transition">cli</Link>
           <Link href="/mcp" className="hover:text-ink transition">mcp</Link>
           <Link href="/search" className="hover:text-ink transition">search</Link>

@@ -1,28 +1,82 @@
+<div align="center">
+
 # opengoat
 
-> **The moat in the agent era isn't agents. It's the humans who operate them.**
->
-> Skills get commoditized. Tools are APIs. What stays defensible is the curated network of humans whose judgment, identity, and accumulated reputation can't be forked. opengoat is the registry of those humans.
+**The moat in the agent era isn't agents. It's the humans who operate them.**
 
-Curated · invite-priority · ~50% of submissions rejected · no take rate.
+[![GitHub stars](https://img.shields.io/github/stars/OpenGoatHQ/opengoat?style=flat&logo=github&color=10b981)](https://github.com/OpenGoatHQ/opengoat/stargazers)
+[![npm CLI](https://img.shields.io/npm/v/open-goat?style=flat&logo=npm&color=10b981&label=open-goat)](https://www.npmjs.com/package/open-goat)
+[![npm MCP](https://img.shields.io/npm/v/opengoat-mcp?style=flat&logo=npm&color=10b981&label=opengoat-mcp)](https://www.npmjs.com/package/opengoat-mcp)
+[![License](https://img.shields.io/badge/code-MIT-lightgrey)](./LICENSE)
+[![Content](https://img.shields.io/badge/content-CC--BY%204.0-lightgrey)](./LICENSE)
 
-## The thesis
+Curated · invite-priority · ~50% of submissions rejected · no take rate
 
-AI agents have skill registries — MCP, Anthropic skills, native tool use. They can find, read, and execute their own capabilities.
+[Site](https://opengoat.com) · [Manifesto](https://opengoat.com/manifesto) · [How it works](https://opengoat.com/how-it-works) · [Be listed](https://opengoat.com/contribute)
 
-Humans need the same. A **playbook** is the human equivalent of a skill manifest: it documents *when to use it*, *when not to*, the *prerequisites*, the *outputs*, the *duration*, and the *cost of hiring* the operator who wrote it.
+</div>
 
-opengoat is the open registry of those manifests. Agents query it. They decide whether to execute themselves or surface a human. Users hire directly. We take 0%.
+---
 
-The skill is commoditizable. The human who calibrates it isn't.
+## What this is
 
-## What lives in the repo
+Skills get commoditized. Tools are APIs. What stays defensible is the curated network of humans whose judgment, identity, and accumulated reputation can't be forked.
 
-- A profile per operator: who they are, what they do, what they **don't** do, how to hire them
-- Their real playbooks: methodology with concrete steps, not LinkedIn fluff
-- A frontmatter schema agents can parse: `when_to_use`, `when_not_to_use`, `human_required`, `cost_diy_usd`, `cost_hire_min_usd`, etc.
+opengoat is the registry of those humans — open, queryable from your terminal, callable by your AI agents, bookable by anyone.
 
-The playbook IS the portfolio. If you can't publish a real playbook, you don't belong here.
+```bash
+npx open-goat search "cold email deliverability"
+```
+
+```
+📘 cold-email-domain-warming         from $5,000  ⏱ 4-6 weeks  agent-executable
+   Bring a fresh sending domain to 5%+ reply rates. Authored by @<handle>...
+
+📘 high-volume-cold-outreach         from $12,000 ⏱ ongoing    human required
+   Sustained cold campaigns at 1k+ sends/day with deliverability protected...
+
+👤 <handle> — Cold email operator since 2019. Anti-spec: bot networks.
+```
+
+## How it works
+
+```mermaid
+flowchart TD
+    A[humans/&lt;category&gt;/&lt;handle&gt;/<br/>profile.md + playbooks/*.md<br/><br/>The repo = source of truth] --> B[Auto-generated<br/>data/index.json]
+    B --> C[opengoat.com<br/>web product]
+    B --> D[npm: open-goat<br/>CLI for devs]
+    B --> E[npm: opengoat-mcp<br/>MCP server for AI agents]
+    C --> F[Humans browse<br/>profiles &amp; playbooks]
+    D --> G[Devs script<br/>discovery + hiring]
+    E --> H[Claude / Cursor / Codex<br/>find &amp; book humans]
+```
+
+Each operator's profile is markdown with structured frontmatter. Each playbook is a **skill manifest** agents can parse:
+
+```yaml
+---
+name: Cold Email Domain Warming Protocol
+when_to_use: [Fresh sending domain, Reply rates below 2%]
+when_not_to_use: [Existing warm domain, Under 100 emails/day]
+prerequisites: [Owned domain, SPF/DKIM/DMARC access]
+duration: 4-6 weeks
+human_required: false
+cost_hire_min_usd: 5000
+cost_hire_max_usd: 15000
+---
+```
+
+Agents read this and decide: execute the playbook themselves, or surface the operator to the user for hiring.
+
+## Three surfaces, one source of truth
+
+| Audience | Surface | What it does |
+|---|---|---|
+| **Humans browsing** | [opengoat.com](https://opengoat.com) | Beautiful profiles, playbook pages, search, booking links |
+| **Devs scripting** | `npm: open-goat` | Terminal search, JSON output, scriptable hiring |
+| **AI agents** | `npm: opengoat-mcp` | MCP server, 4 tools, native Claude/Cursor/Codex integration |
+
+All three read from `data/index.json`, auto-rebuilt on every push. The repo stays the source of truth — no separate database, no sync layer, no vendor lock-in.
 
 ## Categories
 
@@ -45,7 +99,7 @@ The playbook IS the portfolio. If you can't publish a real playbook, you don't b
 ## How to use it
 
 ### From your browser
-Browse [humans/](./humans). Read a playbook. Click the booking link in the author's profile.
+Browse [humans/](./humans). Read a playbook. Click the booking link in the author's profile. Direct booking. We take 0%.
 
 ### From your terminal
 
@@ -59,9 +113,10 @@ opengoat search "cold email deliverability"
 opengoat read <playbook-slug>
 opengoat author <handle>
 opengoat hire <handle>                     # opens booking link
+opengoat submit                            # contribution wizard
 ```
 
-Every command supports `--json`. See [cli/README.md](./cli/README.md).
+Every command supports `--json` for agents. See [cli/README.md](./cli/README.md).
 
 ### From an AI agent (MCP)
 
@@ -79,7 +134,20 @@ Add to your MCP config (Claude Desktop, Cursor, Codex, Cline):
 }
 ```
 
-Tools exposed to the agent: `search_humans`, `read_playbook`, `get_author`, `get_booking_url`. See [mcp/README.md](./mcp/README.md).
+Tools exposed: `search_humans`, `read_playbook`, `get_author`, `get_booking_url`. See [mcp/README.md](./mcp/README.md).
+
+## How it compares
+
+| | opengoat | LinkedIn | Upwork | Intro.co | Clarity.fm |
+|---|---|---|---|---|---|
+| Open-source registry | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Take rate | **0%** | n/a (recruiter SaaS) | 10% | 20% | 15% |
+| Curated / invite-priority | ✅ | ❌ | ❌ | ✅ | ❌ |
+| CLI access | ✅ | ❌ | ❌ | ❌ | ❌ |
+| MCP / agent-native | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Operators publish playbooks | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Direct booking | ✅ (Cal.com) | ❌ | platform-mediated | platform-mediated | platform-mediated |
+| Vetting bar | ~50% rejected | ❌ | ❌ | invite-only | ❌ |
 
 ## How to contribute
 
@@ -89,12 +157,46 @@ Publish a profile + at least one real playbook.
 opengoat submit
 ```
 
-Submissions are vetted. Generic, AI-generated, or self-promotional content is rejected. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Submissions are vetted. Generic, AI-generated, or self-promotional content is rejected. The registry's value is the curation. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+## Roadmap
+
+**v0.1 — Registry online (current)**
+- ✅ Schema + 13 categories
+- ✅ CLI shipped (`open-goat`)
+- ✅ MCP server shipped (`opengoat-mcp`)
+- ✅ Site shipped (Next.js, opengoat.com)
+- ✅ GitHub Actions for auto-rebuild + PR verify
+
+**v0.2 — Supply seeding**
+- First 30 vetted operators
+- First 50 published playbooks
+- Interactive CLI submit wizard
+- Preview deploys on PR (review submissions visually)
+
+**v0.3 — Demand activation**
+- Featured playbook of the week
+- Newsletter (new operators / playbooks)
+- Twitter / Show HN launch
+- First 1k stars
+
+**v1.0 — Compound**
+- 100+ operators across 13 categories
+- 200+ playbooks indexed
+- MCP install across major agent clients
+- Verified-operator badge (KYC + reference checks)
+- "OpenGoat-certified" as a real signal
+
+**v2.0 (later) — monetization optional**
+- Premium analytics for operators (profile views, booking conversion)
+- "Recruiter-tier" search for hiring teams (paid)
+- Sponsored category placements (disclosed)
+- Still: no take rate on bookings.
 
 ## License
 
-- Code (CLI, MCP server, scripts): MIT
-- Content (profiles, playbooks): CC-BY 4.0 (authors keep credit)
+- Code (CLI, MCP server, site, scripts): **MIT**
+- Content (profiles, playbooks): **CC-BY 4.0** — authors keep credit, the work stays portable.
 
 ## Links
 
@@ -102,3 +204,4 @@ Submissions are vetted. Generic, AI-generated, or self-promotional content is re
 - Org: [github.com/OpenGoatHQ](https://github.com/OpenGoatHQ)
 - npm CLI: [`open-goat`](https://www.npmjs.com/package/open-goat) (binary: `opengoat`)
 - npm MCP: [`opengoat-mcp`](https://www.npmjs.com/package/opengoat-mcp)
+- API: [`opengoat.com/api/index.json`](https://opengoat.com/api/index.json)
