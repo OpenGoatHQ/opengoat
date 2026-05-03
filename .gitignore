@@ -18,3 +18,7 @@ out/
 # misc
 .turbo/
 .vercel
+
+# TypeScript build artifacts
+*.tsbuildinfo
+tsconfig.tsbuildinfo
