@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-05-03T02:12:08.280Z",
+  "count_humans": 1,
+  "count_playbooks": 0,
+  "humans": [
+    {
+      "handle": "adrian",
+      "profile": {
+        "name": "Adrian",
+        "handle": "adrian",
+        "location": "France",
+        "languages": [
+          "fr",
+          "en"
+        ],
+        "booking_url": "https://cal.com/adrian",
+        "twitter": "TODO",
+        "linkedin": "TODO",
+        "website": "https://karmable.ai",
+        "specialties": [
+          "reddit",
+          "distributed-marketing",
+          "fleet-operations",
+          "launch-choreography"
+        ],
+        "anti_specialties": [
+          "paid-ads",
+          "enterprise-sales",
+          "bot-networks"
+        ],
+        "rate_hourly_usd": 300,
+        "rate_project_min_usd": 5000,
+        "availability_hours_week": 8,
+        "accepting_bookings": true,
+        "verified": false,
+        "last_updated": "2026-05-02"
+      },
+      "profile_body": "# Adrian\n\nReddit and distributed marketing operator since 2013. Built Karmable.\n\n## Rent for\n\n- Designing distributed marketing campaigns across Reddit, HN, and niche forums\n- Auditing existing fleet operations that are getting flagged or shadowbanned\n- Launch day choreography for technical and dev tools (Reddit + HN + Twitter)\n- Persona engineering for fleets above 50 accounts\n- Sub mapping and ICP-to-community fit for B2B SaaS\n\n## Anti-specialties\n\n- Paid acquisition (Google, Meta, LinkedIn ads)\n- Enterprise sales motions\n- Bot networks or vote manipulation — I do not and will not\n- Engagements under $5k\n\n## Past work\n\n- **ZeroEntropy** — Head of Growth. Distributed community presence across r/MachineLearning, r/LocalLLaMA, r/RAG.\n- **Karmable** — Founder. Platform for operating distributed marketing at scale.\n- *(More on request, with NDA where applicable.)*\n\n## How I work\n\nAsync-first. Loom + Notion + Slack > calls. First 1-2 weeks mapping ICP, communities, and voice. Then weekly sync + async execution.\n\n## Currently\n\n- Building Karmable (full-time)\n- Head of Growth at ZeroEntropy (part-time)\n- Open to 1 retainer client in Q3 2026, focused on technical B2B SaaS\n\n---\n\n*Playbooks: see [`./playbooks/`](./playbooks/)*\n",
+      "playbooks": []
+    }
+  ]
+}

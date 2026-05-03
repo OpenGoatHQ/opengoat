@@ -1,0 +1,25 @@
+name: Build index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'humans/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install --cwd cli
+      - run: bun run scripts/build-index.ts
+      - name: Commit index
+        run: |
+          git config user.name "opengoat-bot"
+          git config user.email "bot@opengoat.com"
+          git add data/index.json
+          git diff --staged --quiet || (git commit -m "chore: rebuild index" && git push)
